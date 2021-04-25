@@ -1,6 +1,7 @@
 import smtplib
 
 sender = 'from@fromdomain.com'
+# Este es mi cambio
 
 def SendEmail(to, template, keyValues):
     try:
