@@ -50,8 +50,12 @@ export const Detalleplatillo = () => {
 				</p>
 				<div>
 					{/* <!-- Button trigger modal --> */}
-					<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-						Launch demo modal
+					<button
+						type="button"
+						className="btn btn-info buttonplatillo"
+						data-toggle="modal"
+						data-target="#exampleModal">
+						Descripción detallada del Platillo
 					</button>
 					{/* <!-- Modal --> */}
 					<div
@@ -116,7 +120,7 @@ export const Detalleplatillo = () => {
 								<textarea className="form-control" id="exampleFormControlTextarea1" rows="3" />
 							</div>
 							<div className="text-center">
-								<button type="button" className="btn btn-primary">
+								<button type="button" className="btn btn-info">
 									Agregar al carrito
 								</button>
 							</div>
