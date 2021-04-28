@@ -50,14 +50,9 @@ export const Detalleplatillo = () => {
 				</p>
 				<div>
 					{/* <!-- Button trigger modal --> */}
-					<button
-						type="button"
-						className="btn btn-primary"
-						data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
+					<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 						Launch demo modal
 					</button>
-
 					{/* <!-- Modal --> */}
 					<div
 						className="modal fade"
@@ -69,26 +64,22 @@ export const Detalleplatillo = () => {
 							<div className="modal-content">
 								<div className="modal-header">
 									<h5 className="modal-title" id="exampleModalLabel">
-										Descripción detallada del platillo
+										Detalles del Platillo
 									</h5>
-									<button
-										type="button"
-										className="btn-close"
-										data-bs-dismiss="modal"
-										aria-label="Close"
-									/>
+									<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
 								</div>
 								<div className="modal-body">
-									<ul className="list-group">
-										<li className="list-group-item">An item</li>
-										<li className="list-group-item">A second item</li>
-										<li className="list-group-item">A third item</li>
-										<li className="list-group-item">A fourth item</li>
-										<li className="list-group-item">And a fifth one</li>
-									</ul>
+									<ol className="list-group">
+										<li className="list-group-item">Gramos:</li>
+										<li className="list-group-item">Calorías:</li>
+										<li className="list-group-item">Preparación:</li>
+										<li className="list-group-item">Azúcar:</li>
+									</ol>
 								</div>
 								<div className="modal-footer">
-									<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+									<button type="button" className="btn btn-secondary" data-dismiss="modal">
 										Cerrar
 									</button>
 								</div>
