@@ -6,6 +6,7 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Detalleplatillo } from "./component/detalleplatillo";
+import { Carrito } from "./component/Carrito";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
