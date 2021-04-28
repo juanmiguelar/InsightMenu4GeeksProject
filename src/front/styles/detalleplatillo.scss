@@ -21,8 +21,13 @@ body{
 
 }
 
-.description{
+.dishdetails{
     margin-left: 50px; 
+}
+
+.dishdetails h2{
+    font-size: 16px;
+    font-style: bold;
 }
 
 .description h1{
@@ -30,22 +35,8 @@ body{
     font-weight: 300;
 }
 
-.description p{
-   font-size: 15px; 
-}
-
-.description span{
-   margin-top: 15px;
-   display: inline-block;
-   font-weight: 600;
-   font-size: 30px;
-   color: black
-}
-
 .description button{
     font-size: 18px;
-    padding: 10px 50px;
-    margin-top: 40px;
     cursor: pointer;
     border: 0;
     outline: none;
