@@ -48,7 +48,7 @@ export const Detalleplatillo = () => {
 					Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa
 					senectus enim minim sociosqu delectus posuere.
 				</p>
-				<div>
+				<div classname="Modal_detalle_platillo">
 					{/* <!-- Button trigger modal --> */}
 					<button
 						type="button"
@@ -94,7 +94,7 @@ export const Detalleplatillo = () => {
 				<h4 className="price">
 					Precio: <span>$180</span>
 				</h4>
-				<div>
+				<div className="PedidoOnline">
 					<form className="form-inline">
 						<label className="my-1 mr-2" htmlFor="inlineFormCustomSelectPref">
 							Cantidad de platillos
