@@ -1,7 +1,7 @@
 import React from "react";
 import "../../styles/home.scss";
 
-export const Home = () => {
+export const CuentaRecuperar1 = () => {
 	return (
 		<div className="lcont row">
 			<div />
