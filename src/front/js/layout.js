@@ -42,6 +42,9 @@ const Layout = () => {
 						<Route exact path="/detalleplatillo">
 							<Detalleplatillo />
 						</Route>
+						<Route exact path="/Carrito">
+							<Carrito />
+						</Route>
 						<Route exact path="/single/:theid">
 							<Single />
 						</Route>
