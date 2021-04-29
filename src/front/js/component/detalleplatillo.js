@@ -48,7 +48,7 @@ export const Detalleplatillo = () => {
 					Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa
 					senectus enim minim sociosqu delectus posuere.
 				</p>
-				<div classname="Modal_detalle_platillo">
+				<div className="Modal_detalle_platillo">
 					{/* <!-- Button trigger modal --> */}
 					<button
 						type="button"
