@@ -1,35 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../store/appContext";
+import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.scss";
 
-export const CuentaIniciar = () => {
+export const Home = () => {
 	return (
 		<div className="lcont row">
 			<div />
-			<img
-				className="col-6 "
-				src="https://pro.tibbyolivier.com/wp-content/uploads/2018/07/fruit_1024x1024.jpg"
-				alt="Characters"
-			/>
-			<div>
-				<div className="col card row">
+			<div className="d-flex justify-content-center">
+				<img
+					className="test"
+					src="https://pro.tibbyolivier.com/wp-content/uploads/2018/07/fruit_1024x1024.jpg"
+					alt="Characters"
+				/>
+				<div className="card row col-md-4 col-md-6">
 					<div className="mt-2 text-center">
 						<h4>Inicio de Sesión</h4> <span>Inicie sesión con sus credenciales</span>
 						<div className="mt-3 inputbox">
-							<input type="text" className="form-control" name="" placeholder="Correo Electronico" />
+							<input
+								type="password"
+								className="form-control"
+								name=""
+								placeholder="Correo Electronico"
+								required
+							/>
 							<i className="fa fa-user" />
 						</div>
 						<div className="inputbox">
-							<input type="text" className="form-control" name="" placeholder="Contraseña" />
+							<input type="text" className="form-control" name="" placeholder="Contraseña" required />
 							<i className="fa fa-lock" />
 						</div>
 					</div>
-					<div className="d-flex justify-content-between">
-						<div className="form-check">
-							<input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-							<label className="form-check-label">
-								Acepta las políticas de seguridad y condiciones de servicio
-							</label>
-						</div>
+					<div className="fpass d-flex justify-content-between">
 						<div>
 							<a href="#" className="forgot">
 								Olvidó su contraseña?
