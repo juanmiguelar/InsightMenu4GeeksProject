@@ -13,8 +13,11 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
-import { CuentaCrear } from "./pages/cuentacrear";
-import { CuentaIniciar } from "./pages/cuentainiciar";
+import { CuentaCrear } from "./component/cuentacrear";
+import { CuentaIniciar } from "./component/cuentainiciar";
+import { CuentaRecuperar1 } from "./component/cuentarecuperar1";
+import { CuentaRecuperar2 } from "./component/cuentarecuperar2";
+import { CuentaRecuperar3 } from "./component/cuentarecuperar3";
 
 //create your first component
 const Layout = () => {
@@ -39,6 +42,15 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/cuentainiciar">
 							<CuentaIniciar />
+						</Route>
+						<Route exact path="/cuentarecuperar1">
+							<CuentaRecuperar1 />
+						</Route>
+						<Route exact path="/cuentarecuperar2">
+							<CuentaRecuperar2 />
+						</Route>
+						<Route exact path="/cuentarecuperar3">
+							<CuentaRecuperar3 />
 						</Route>
 						<Route exact path="/detalleplatillo">
 							<Detalleplatillo />

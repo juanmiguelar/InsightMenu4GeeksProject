@@ -42,6 +42,11 @@ export const Detalleplatillo = () => {
 			</div>
 			{/* <!--description start--> */}
 			<div className="dishdetails">
+				<div className="Tags float-right">
+					<span className="badge badge-pill badge-primary">Primary</span>
+					<span className="badge badge-pill badge-secondary">Secondary</span>
+					<span className="badge badge-pill badge-success">Success</span>
+				</div>
 				<h1>Ensalada Verde</h1>
 				<h2>Descripción breve del platillo:</h2>
 				<p className="product-description">
