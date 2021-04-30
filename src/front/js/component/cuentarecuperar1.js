@@ -1,9 +1,9 @@
 import React from "react";
-import "../../styles/home.scss";
+import "../../styles/cuentarecuperar1.scss";
 
 export const CuentaRecuperar1 = () => {
 	return (
-		<div className="lcont row">
+		<div className="lcont row justify-content-center">
 			<div />
 			<div>
 				<div className="col card row">
