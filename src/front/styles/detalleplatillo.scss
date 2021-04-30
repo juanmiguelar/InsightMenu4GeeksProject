@@ -25,6 +25,10 @@ body{
     margin-left: 50px; 
 }
 
+.dishdetails h{
+    display: inline-block;
+}
+
 .dishdetails h2{
     font-size: 16px;
     font-style: bold;
@@ -32,35 +36,4 @@ body{
 
 .dishdetails .buttonplatillo{
     margin-bottom: 20px;
-}
-
-.description h1{
-    margin: 0 10px 10px 10px;
-    font-weight: 300;
-}
-
-.description button{
-    font-size: 18px;
-    cursor: pointer;
-    border: 0;
-    outline: none;
-    color: white;
-    box-shadow: 0 4px 6px 0 rgba(0,0,0,.12);
-}
-
-.description .buy{
-    background-color: #900C3F;
-}
-
-.description .cart{
-    background-color: #900C3F;
-    margin-left: 10px;
-}
-
-.xzoom-thumbs img{
-    display: inline-block;
-    height: 80px;
-    width: 96px;
-    border: 1px solid #ccc;
-    margin-right: 5px;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/home.scss";
+import "../../styles/cuentainiciar.scss";
 
 export const CuentaIniciar = () => {
 	return (

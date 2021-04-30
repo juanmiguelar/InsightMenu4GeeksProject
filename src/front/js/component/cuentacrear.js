@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/home.scss";
+import "../../styles/cuentacrear.scss";
 
 export const CuentaCrear = () => {
 	return (
@@ -87,4 +87,3 @@ export const CuentaCrear = () => {
 		</div>
 	);
 };
-
