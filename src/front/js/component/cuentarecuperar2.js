@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/home.scss";
+import "../../styles/cuentarecuperar2.scss";
 
 export const CuentaRecuperar2 = () => {
 	return (
