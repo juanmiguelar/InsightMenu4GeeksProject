@@ -10,22 +10,20 @@ body{
     background-color: #e2e2e2;
 }
 
-.container{
-    width: 2000px;
-    margin: 50px auto 0;
+.containerdetalleplatillo{
+    width: 70%;
+    margin: 5% auto 0;
     background-color: white;
     padding: 15px;
     border-radius: 5px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-
 }
 
 .dishdetails{
     margin-left: 50px; 
 }
 
-.dishdetails h{
+.dishdetails h1{
     display: inline-block;
 }
 
