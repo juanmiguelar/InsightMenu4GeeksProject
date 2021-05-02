@@ -55,10 +55,10 @@ export const Carrito = () => {
 							<div className="col col-lg-3">
 								<h3 className="my-0">$20</h3>
 							</div>
-							<div className="col col-lg-3">
-								<div className="form-group">
+							<div className="col col-lg-3 text-left">
+								<div className="form-group text-left">
 									<label htmlFor="exampleFormControlSelect1" />
-									<select className="form-control" id="exampleFormControlSelect1">
+									<select className="form-control text-left" id="exampleFormControlSelect1">
 										<option>1</option>
 										<option>2</option>
 										<option>3</option>
@@ -68,6 +68,9 @@ export const Carrito = () => {
 									<button type="button" className="m-4 btn btn-outline-danger btn-sm">
 										Eliminar platillo
 									</button>
+									<div className="container-fluid">
+										<h6 className="my-0 text-left">Subtotal: $20</h6>
+									</div>
 								</div>
 							</div>
 						</div>

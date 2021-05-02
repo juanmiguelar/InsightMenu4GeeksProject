@@ -7,6 +7,7 @@ import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Detalleplatillo } from "./component/detalleplatillo";
 import { Carrito } from "./component/Carrito";
+import { AboutUs } from "./component/AboutUs";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -39,23 +40,14 @@ const Layout = () => {
 						<Route exact path="/cuentacrear">
 							<CuentaCrear />
 						</Route>
-						<Route exact path="/cuentainiciar">
-							<CuentaIniciar />
-						</Route>
-						<Route exact path="/cuentarecuperar1">
-							<CuentaRecuperar1 />
-						</Route>
-						<Route exact path="/cuentarecuperar2">
-							<CuentaRecuperar2 />
-						</Route>
-						<Route exact path="/cuentarecuperar3">
-							<CuentaRecuperar3 />
-						</Route>
 						<Route exact path="/detalleplatillo">
 							<Detalleplatillo />
 						</Route>
 						<Route exact path="/Carrito">
 							<Carrito />
+						</Route>
+						<Route exact path="/AboutUs">
+							<AboutUs />
 						</Route>
 						<Route exact path="/single/:theid">
 							<Single />

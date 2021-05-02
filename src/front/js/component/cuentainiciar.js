@@ -3,9 +3,9 @@ import "../../styles/cuentainiciar.scss";
 
 export const CuentaIniciar = () => {
 	return (
-		<div className="lcont row">
+		<div className="lcont row justify-content-center">
 			<div />
-			<div className="d-flex justify-content-center">
+			<div className="d-flex ">
 				<img
 					className="test"
 					src="https://pro.tibbyolivier.com/wp-content/uploads/2018/07/fruit_1024x1024.jpg"
