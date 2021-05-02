@@ -39,3 +39,12 @@ def generate_sitemap(app):
         <p>Start working on your proyect by following the <a href="https://start.4geeksacademy.com/starters/full-stack" target="_blank">Quick Start</a></p>
         <p>Remember to specify a real endpoint path like: </p>
         <ul style="text-align: left;">"""+links_html+"</ul></div>"
+
+def ToObj(json, obj):
+    for prop in obj.__table__.columns:
+        key = str(prop).split(".")
+        value = json.get(key[1], None)
+        if value is not None:
+            setattr(obj, key[1], value)
+    
+    return obj
