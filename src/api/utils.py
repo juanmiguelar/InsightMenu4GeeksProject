@@ -50,8 +50,11 @@ def ToObj(json, obj):
     return obj
 
 def ToObj_Array(json_array, obj):
-    newArray = []
-    for item_json in json_array:
-        newArray.append(ToObj(item_json, obj.instance()))
-        
-    return newArray
+    if json_array is not None:
+        newArray = []
+        for item_json in json_array:
+            newArray.append(ToObj(item_json, obj.instance()))
+
+        return newArray
+    else:
+        return None

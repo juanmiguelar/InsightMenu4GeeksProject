@@ -52,17 +52,21 @@ def POST_Pedido():
     pedido = ToObj(request.json, Pedido())
     # OBTENGO LA INFO DE LOS DETALLES DEL PEDIDO
     detalles = ToObj_Array(request.json.get("detalle", None), DetallePedido())
-    # INSERTO EL PEDIDO EN LA BASE DE DATOS PARA OBTENER SU ID
-    db.session.add(pedido)
-    db.session.commit()
+    if detalles is not None and len(detalles) > 0:    
+        # INSERTO EL PEDIDO EN LA BASE DE DATOS PARA OBTENER SU ID
+        db.session.add(pedido)
+        db.session.commit()
 
-    # RELACIONO LOS DETALLES AL ID DEL PEDIDO RECIEN GENERADO
-    for target_list in detalles:
-        target_list.idPedido = pedido.id
-        db.session.add(target_list)
+        # RELACIONO LOS DETALLES AL ID DEL PEDIDO RECIEN GENERADO
+        for target_list in detalles:
+            target_list.idPedido = pedido.id
+            db.session.add(target_list)
 
-    #AGREGO LOS DETALLES A LA BASE DE DATOS
-    db.session.commit()
+        #AGREGO LOS DETALLES A LA BASE DE DATOS
+        db.session.commit()
+        return jsonify(pedido.serialize()), 200
+    else:
+        return "BadRequest: debe haber detalle", 400
     
-    return jsonify(pedido.serialize()), 200
+    
     
