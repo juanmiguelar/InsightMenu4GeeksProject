@@ -3,10 +3,10 @@ import "../../styles/cuentacrear.scss";
 
 export const CuentaCrear = () => {
 	return (
-		<div className="lcont row">
+		<div className="lcont row justify-content-center">
 			<div />
 			<div>
-				<div className="col card row">
+				<div className="col card">
 					<div className="mt-4 text-center">
 						<h4>Crear Cuenta</h4> <span>Ingrese los siguientes datos para la creación de su cuenta</span>
 						<div className="inputbox">
@@ -68,17 +68,18 @@ export const CuentaCrear = () => {
 							</label>
 						</div>
 					</div>
-					<div className="container row justify-content-center">
+					<div className="row">
 						<div className="col-6">
 							<p>Seleccione si es una cuenta empresarial</p>
 						</div>
-						<div className="toggle-container ">
+						<div className="toggle-container col-6">
 							<label className="switch round">
 								<input type="checkbox" />
 								<span className="slider round" />
 							</label>
 						</div>
 					</div>
+
 					<div className="mt-2 justify-content-center">
 						<button className="btn btn-primary btn-block">Crear mi Cuenta</button>
 					</div>
