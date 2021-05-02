@@ -48,3 +48,10 @@ def ToObj(json, obj):
             setattr(obj, key[1], value)
     
     return obj
+
+def ToObj_Array(json_array, obj):
+    newArray = []
+    for item_json in json_array:
+        newArray.append(ToObj(item_json, obj.instance()))
+        
+    return newArray

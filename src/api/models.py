@@ -46,7 +46,7 @@ class Pedido(db.Model):
             "total": self.total
         }
 
-class DetallePedido(db.Model):
+class DetallePedido(db.Model): 
     id = db.Column(db.Integer, primary_key=True)
     idPedido = db.Column(db.Integer, db.ForeignKey('pedido.id'), nullable=False)
     idProducto = db.Column(db.Integer, db.ForeignKey('producto.id'), nullable=False)
@@ -58,6 +58,9 @@ class DetallePedido(db.Model):
 
     def __repr__(self):
         return '<DetallePedido %r>' % self.id
+    
+    def instance(self):
+        return DetallePedido()
 
     def serialize(self):
         return {

@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Pedido, DetallePedido, Producto, Ingrediente, Producto_x_Tag, Tag
-from api.utils import generate_sitemap, APIException, ToObj
+from api.utils import generate_sitemap, APIException, ToObj, ToObj_Array
 
 api = Blueprint('api', __name__)
 
@@ -46,10 +46,23 @@ def Login():
     access_token = create_access_token(identity=user.id)
     return jsonify({ "token": access_token, "user_id": user.id })
 
-@api.route('/test', methods=['POST'])
-def test():
+@api.route('/pedido', methods=['POST'])
+def POST_Pedido():
+    # OBTENGO LA INFO DE PEDIDO
     pedido = ToObj(request.json, Pedido())
+    # OBTENGO LA INFO DE LOS DETALLES DEL PEDIDO
+    detalles = ToObj_Array(request.json.get("detalle", None), DetallePedido())
+    # INSERTO EL PEDIDO EN LA BASE DE DATOS PARA OBTENER SU ID
     db.session.add(pedido)
     db.session.commit()
+
+    # RELACIONO LOS DETALLES AL ID DEL PEDIDO RECIEN GENERADO
+    for target_list in detalles:
+        target_list.idPedido = pedido.id
+        db.session.add(target_list)
+
+    #AGREGO LOS DETALLES A LA BASE DE DATOS
+    db.session.commit()
+    
     return jsonify(pedido.serialize()), 200
     
