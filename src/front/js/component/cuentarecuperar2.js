@@ -6,7 +6,7 @@ export const CuentaRecuperar2 = () => {
 		<div className="lcont row justify-content-center">
 			<div />
 			<div>
-				<div className="col card row">
+				<div className="cardr2 card col row">
 					<div className="mt-4 text-center">
 						<h4>Código de Validación</h4> <span>Ingrese el código enviado a su correo electrónico</span>
 						<div className="inputbox">

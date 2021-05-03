@@ -1,8 +1,10 @@
-.test{
+// Image
+.imgini{
     width: 600px;
 }
 
-body {
+// Container
+.ciniciar {
     background-color: #eee;
     display: flex;
     justify-content: center;
@@ -10,7 +12,8 @@ body {
     height: 100vh;
 }
 
-.card {
+// Card
+.cardini {
     width: 400px;
     padding: 20px;
     border: none;
