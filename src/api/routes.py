@@ -14,6 +14,7 @@ def alive():
     }
     return jsonify(response_body), 200
 
+### PRODUCTO ###
 @api.route('/producto', methods=['GET'])
 def GetAllProduct():
     productos = list(map(lambda p: p.serialize(), Producto.query.all()))
@@ -26,7 +27,9 @@ def GetProductById(id):
         return jsonify(producto.serialize()), 200     
     else:
         return "El producto no existe", 404
+### PRODUCTO END ###
 
+### USER ###
 @api.route('/user/<int:id>', methods=['GET'])
 def GetUserById(id):
     user = User.query.get(id)
@@ -45,7 +48,9 @@ def Login():
         return jsonify({"msg": "Bad username or password"}), 401
     access_token = create_access_token(identity=user.id)
     return jsonify({ "token": access_token, "user_id": user.id })
+### USER END###
 
+### PEDIDO ###
 @api.route('/pedido', methods=['POST'])
 def POST_Pedido():
     # OBTENGO LA INFO DE PEDIDO
@@ -68,5 +73,5 @@ def POST_Pedido():
     else:
         return "BadRequest: debe haber detalle", 400
     
-    
+### PEDIDO END ###
     

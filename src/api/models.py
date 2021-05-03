@@ -91,6 +91,23 @@ class Producto(db.Model):
             "descripcion": self.descripcion
         }
 
+class ImagenProducto(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    idProducto = db.Column(db.Integer, db.ForeignKey('producto.id'), nullable=False)
+    url = db.Column(db.String(500), nullable=True)
+    esPrincipal = db.Column(db.Boolean, nullable=False, default=False)
+
+    def __repr__(self):
+        return '<ImagenProducto %r>' % self.id
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "idProducto": self.idProducto,
+            "url": self.url,
+            "esPrincipal": self.esPrincipal
+        }
+
 class Ingrediente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     idProducto = db.Column(db.Integer, db.ForeignKey('producto.id'), nullable=False)
