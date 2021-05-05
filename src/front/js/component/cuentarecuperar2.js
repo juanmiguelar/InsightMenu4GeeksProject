@@ -1,21 +1,36 @@
 import React from "react";
-import "../../styles/cuentarecuperar2.scss";
 
 export const CuentaRecuperar2 = () => {
 	return (
-		<div className="lcont row justify-content-center">
-			<div />
-			<div>
-				<div className="cardr2 card col row">
-					<div className="mt-4 text-center">
-						<h4>Código de Validación</h4> <span>Ingrese el código enviado a su correo electrónico</span>
-						<div className="inputbox">
-							<input type="number" className="form-control" name="" placeholder="Ingrese el código" />
-							<i className="far fa-keyboard" />
+		<div className="container">
+			<div className="row justify-content-center">
+				<div />
+				<div>
+					<div className="card">
+						<div className="card-body">
+							<div className="mt-4 text-center">
+								<h4>Código de Validación</h4>{" "}
+								<span>Ingrese el código enviado a su correo electrónico</span>
+								<div className="input-group mb-2">
+									<div className="input-group-prepend">
+										<span className="input-group-text" id="keyboard">
+											<i className="far fa-keyboard" />
+										</span>
+									</div>
+									<input
+										type="password"
+										className="form-control"
+										name=""
+										placeholder="Ingrese el código"
+										aria-describedby="envelope"
+										required
+									/>
+								</div>
+							</div>
+							<div className="mt-2">
+								<button className="btn btn-info btn-block">Crear mi Cuenta</button>
+							</div>
 						</div>
-					</div>
-					<div className="mt-2">
-						<button className="btn btn-primary btn-block">Crear mi Cuenta</button>
 					</div>
 				</div>
 			</div>

@@ -37,13 +37,28 @@ const Layout = () => {
 						<Route exact path="/demo">
 							<Demo />
 						</Route>
+						<Route exact path="/crearcuenta">
+							<CuentaCrear />
+						</Route>
+						<Route exact path="/cuentainiciar">
+							<CuentaIniciar />
+						</Route>
+						<Route exact path="/cuentarecuperar1">
+							<CuentaRecuperar1 />
+						</Route>
+						<Route exact path="/cuentarecuperar2">
+							<CuentaRecuperar2 />
+						</Route>
+						<Route exact path="/cuentarecuperar3">
+							<CuentaRecuperar3 />
+						</Route>
 						<Route exact path="/detalleplatillo">
 							<Detalleplatillo />
 						</Route>
-						<Route exact path="/Carrito">
+						<Route exact path="/carrito">
 							<Carrito />
 						</Route>
-						<Route exact path="/AboutUs">
+						<Route exact path="/aboutus">
 							<AboutUs />
 						</Route>
 						<Route exact path="/single/:theid">

@@ -6,12 +6,12 @@ import logoinsightjpg from "../../img/Insight.jpg";
 
 export const Navbar = () => {
 	return (
-		<div className="containerlanding">
+		<div className="container-fluid mb-3">
 			<div className="row">
 				<div className="col">
 					<nav className="navbar navbar-expand-lg navbar-light bg-light">
 						<a className="navbar-brand" href="#">
-							<img src={logoinsight150ppi} width="150" height="70" alt="" />
+							<img src={logoinsight150ppi} width="180" height="90" alt="" />
 						</a>
 						<button
 							className="navbar-toggler"

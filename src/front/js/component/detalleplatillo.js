@@ -13,7 +13,7 @@ import "../../styles/detalleplatillo.scss";
 
 export const Detalleplatillo = () => {
 	return (
-		<div className="containerdetalleplatillo">
+		<div className="container">
 			<div className="row">
 				<div className="col-xs-12 col-sm-3 col-md-4 col-lg-5">
 					<div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
@@ -24,13 +24,13 @@ export const Detalleplatillo = () => {
 						</ol>
 						<div className="carousel-inner">
 							<div className="carousel-item active">
-								<img src={salad1med} className="d-block w-100" alt="..." />
+								<img src={salad1med} className="d-block img-responsive imagemaxheight" alt="..." />
 							</div>
 							<div className="carousel-item">
-								<img src={salad2med} className="d-block w-100" alt="..." />
+								<img src={salad2med} className="d-block img-responsive imagemaxheight" alt="..." />
 							</div>
 							<div className="carousel-item">
-								<img src={salad3med} className="d-block w-100" alt="..." />
+								<img src={salad3med} className="d-block img-responsive imagemaxheight" alt="..." />
 							</div>
 						</div>
 						<a
