@@ -1,37 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
 
-// body{
-//     font-family: 'Poppins', sans-serif;
-//     background-color: #e2e2e2;
-// }
-
-.containerdetalleplatillo{
-    width: 70%;
-    margin: 5% auto 0;
-    background-color: white;
-    padding: 15px;
-    border-radius: 5px;
-    display: grid;
-}
-
-.dishdetails{
-    margin-left: 50px; 
-}
-
-.dishdetails h1{
-    display: inline-block;
-}
-
-.dishdetails h2{
-    font-size: 16px;
-    font-style: bold;
-}
-
-.dishdetails .buttonplatillo{
-    margin-bottom: 20px;
+.imagemaxheight{
+    max-height: 350px;
 }
