@@ -1,4 +1,6 @@
-body {
+
+// Container
+.cr1 {
     background-color: #eee;
     display: flex;
     justify-content: center;
@@ -6,7 +8,8 @@ body {
     height: 100vh;
 }
 
-.card {
+// Card
+.cardr1 {
     width: 600px;
     padding: 20px;
     border: none;

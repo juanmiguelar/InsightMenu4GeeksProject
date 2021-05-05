@@ -3,10 +3,10 @@ import "../../styles/cuentacrear.scss";
 
 export const CuentaCrear = () => {
 	return (
-		<div className="lcont row justify-content-center">
+		<div className="ccrear row justify-content-center">
 			<div />
 			<div>
-				<div className="col card">
+				<div className="col crecard">
 					<div className="mt-4 text-center">
 						<h4>Crear Cuenta</h4> <span>Ingrese los siguientes datos para la creación de su cuenta</span>
 						<div className="inputbox">

@@ -3,10 +3,10 @@ import "../../styles/cuentarecuperar1.scss";
 
 export const CuentaRecuperar1 = () => {
 	return (
-		<div className="lcont row justify-content-center">
+		<div className="cr1 row justify-content-center">
 			<div />
 			<div>
-				<div className="col card row">
+				<div className="cardr1 card col row">
 					<div className="mt-4 text-center">
 						<h4>Recuperar Contraseña</h4>{" "}
 						<span>Ingrese su correo electrónico para la recuperación de su cuenta</span>
