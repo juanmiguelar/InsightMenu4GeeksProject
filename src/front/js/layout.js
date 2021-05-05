@@ -55,10 +55,10 @@ const Layout = () => {
 						<Route exact path="/detalleplatillo">
 							<Detalleplatillo />
 						</Route>
-						<Route exact path="/Carrito">
+						<Route exact path="/carrito">
 							<Carrito />
 						</Route>
-						<Route exact path="/AboutUs">
+						<Route exact path="/aboutus">
 							<AboutUs />
 						</Route>
 						<Route exact path="/single/:theid">

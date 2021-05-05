@@ -38,7 +38,7 @@ export const CuentaIniciar = () => {
 						</div>
 					</div>
 					<div className="mt-2">
-						<button className="btn btn-primary btn-block">Inicio de Sesión</button>
+						<button className="btn btn-info btn-block">Inicio de Sesión</button>
 					</div>
 				</div>
 			</div>

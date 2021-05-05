@@ -41,7 +41,7 @@ export const CuentaRecuperar3 = () => {
 								</div>
 							</div>
 							<div className="mt-2">
-								<button className="btn btn-primary btn-block">Crear mi Cuenta</button>
+								<button className="btn btn-info btn-block">Crear mi Cuenta</button>
 							</div>
 						</div>
 					</div>

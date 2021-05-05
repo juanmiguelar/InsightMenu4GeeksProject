@@ -81,7 +81,7 @@ export const AboutUs = () => {
 
 			<footer className="footer">
 				<div className="justify-content-center text-center">
-					<p className="text-muted">Si desea contactarnos, envie un correo al Soporte@insightmenu.com</p>
+					<p className="text-muted">Si desea contactarnos, envíe un correo a Soporte@insightmenu.com</p>
 				</div>
 			</footer>
 		</div>
