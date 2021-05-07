@@ -24,7 +24,7 @@ def GetAllProduct():
 def GetProductById(id):
     producto = Producto.query.get(id)
     if producto is not None:
-        return jsonify(producto.serialize()), 200     
+        return jsonify(producto.serialize(details=True)), 200     
     else:
         return "El producto no existe", 404
 ### PRODUCTO END ###
