@@ -76,7 +76,7 @@ export const Home = () => {
 			</div>
 			<div className="row">
 				<div className="col">
-					<nav className="navbar navbar-expand-lg navbar-light bg-light">
+					<nav className="navbar navbar-expand-lg navbar-light bg-light navbartags">
 						<button
 							className="navbar-toggler"
 							type="button"
