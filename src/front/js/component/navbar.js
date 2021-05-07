@@ -12,9 +12,11 @@ export const Navbar = () => {
 			<div className="row">
 				<div className="col">
 					<nav className="navbar navbar-expand-lg navbar-light bg-light navbarinsight">
-						<a className="navbar-brand" href="#">
-							<img src={logoinsight150ppi} width="180" height="90" alt="" />
-						</a>
+						<Link to="/">
+							<a className="navbar-brand" href="#">
+								<img src={logoinsight150ppi} width="180" height="90" alt="" />
+							</a>
+						</Link>
 						<button
 							className="navbar-toggler"
 							type="button"
@@ -26,25 +28,11 @@ export const Navbar = () => {
 							<span className="navbar-toggler-icon" />
 						</button>
 						<div className="collapse navbar-collapse justify-content-center" id="navbarNav">
-							<ul className="navbar-nav nav-fill w-70">
-								<Link to="/">
-									<li className="nav-item active">
-										<a className="nav-link" href="#">
-											Inicio <span className="sr-only">(current)</span>
-										</a>
-									</li>
-								</Link>
-								<Link to="/detalleplatillo">
+							<ul className="navbar-nav nav-fill w-500">
+								<Link to="/cuentainiciar">
 									<li className="nav-item">
 										<a className="nav-link" href="#">
-											Menú
-										</a>
-									</li>
-								</Link>
-								<Link to="/crearcuenta">
-									<li className="nav-item">
-										<a className="nav-link" href="#">
-											Crear Cuenta
+											Iniciar Sesión
 										</a>
 									</li>
 								</Link>

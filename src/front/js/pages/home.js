@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 import ceviche from "../../img/ceviche.jpg";
 import cereal from "../../img/cereal2.jpg";
 import ensalada from "../../img/ensalada2.jpg";
@@ -11,9 +12,35 @@ import logoinsight150ppi from "../../img/Insight_150ppi.png";
 import logoinsight72ppi from "../../img/Insight_72ppi.png";
 import logoinsightjpg from "../../img/Insight.jpg";
 
+import { CardPlatillo } from "../component/cardplatillo";
+
 import "../../styles/home.scss";
 
 export const Home = () => {
+	const { store, actions } = useContext(Context);
+	const Mostrarplatillos = () => {
+		return (
+			<div className="container-fluid characters mt-5">
+				<div className="row">
+					{store.platillo !== undefined
+						? store.platillo.map((item, index) => {
+								return (
+									<div key={index}>
+										<CardPlatillo
+											image={item.img}
+											nombre={item.nombre}
+											precio={item.precio}
+											ingredientes={item.ingredientes}
+											id={index}
+										/>
+									</div>
+								);
+						  })
+						: "loading..."}
+				</div>
+			</div>
+		);
+	};
 	return (
 		<div className="container">
 			<div className="row">
@@ -118,6 +145,9 @@ export const Home = () => {
 						</div>
 					</nav>
 				</div>
+			</div>
+			<div className="row">
+				<div className="col">{Mostrarplatillos()}</div>
 			</div>
 		</div>
 	);
