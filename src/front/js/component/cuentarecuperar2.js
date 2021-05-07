@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const CuentaRecuperar2 = () => {
 	return (
@@ -28,7 +29,9 @@ export const CuentaRecuperar2 = () => {
 								</div>
 							</div>
 							<div className="mt-2">
-								<button className="btn btn-info btn-block">Crear mi Cuenta</button>
+								<Link to={"/cuentarecuperar3"}>
+									<button className="btn btn-info btn-block">Crear mi Cuenta</button>
+								</Link>
 							</div>
 						</div>
 					</div>
