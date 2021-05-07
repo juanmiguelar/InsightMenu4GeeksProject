@@ -2,6 +2,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			carrito: [
+				{
+					nombre: "Pinto",
+					precio: 1500,
+					img: "https://i.ibb.co/tMMR78y/image.png"
+				},
+				{
+					nombre: "Ensalada Cheems",
+					precio: 2300,
+					img: "https://i.ibb.co/tMMR78y/image.png"
+				}
+			],
 			demo: [
 				{
 					title: "FIRST",
