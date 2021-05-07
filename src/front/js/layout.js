@@ -52,7 +52,7 @@ const Layout = () => {
 						<Route exact path="/cuentarecuperar3">
 							<CuentaRecuperar3 />
 						</Route>
-						<Route exact path="/detalleplatillo">
+						<Route exact path="/detalleplatillo/:id">
 							<Detalleplatillo />
 						</Route>
 						<Route exact path="/carrito">
