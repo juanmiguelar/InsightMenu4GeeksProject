@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const CuentaRecuperar1 = () => {
 	return (
@@ -17,7 +18,7 @@ export const CuentaRecuperar1 = () => {
 										</span>
 									</div>
 									<input
-										type="password"
+										type="email"
 										className="form-control"
 										name=""
 										placeholder="Correo Electrónico"
@@ -27,7 +28,9 @@ export const CuentaRecuperar1 = () => {
 								</div>
 							</div>
 							<div className="mt-2">
-								<button className="btn btn-info btn-block">Crear mi Cuenta</button>
+								<Link to={"/cuentarecuperar2"}>
+									<button className="btn btn-info btn-block">Crear mi Cuenta</button>
+								</Link>
 							</div>
 						</div>
 					</div>
