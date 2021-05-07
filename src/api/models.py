@@ -46,7 +46,7 @@ class Pedido(db.Model):
             "total": self.total
         }
 
-class DetallePedido(db.Model):
+class DetallePedido(db.Model): 
     id = db.Column(db.Integer, primary_key=True)
     idPedido = db.Column(db.Integer, db.ForeignKey('pedido.id'), nullable=False)
     idProducto = db.Column(db.Integer, db.ForeignKey('producto.id'), nullable=False)
@@ -58,6 +58,9 @@ class DetallePedido(db.Model):
 
     def __repr__(self):
         return '<DetallePedido %r>' % self.id
+    
+    def instance(self):
+        return DetallePedido()
 
     def serialize(self):
         return {
@@ -76,16 +79,53 @@ class Producto(db.Model):
     descripcion = db.Column(db.String(500), nullable=True)
 
     userEmpresarial = db.relationship("User", lazy='subquery', backref=db.backref("Producto", cascade="all,delete"))
+    imagenes = db.relationship("ImagenProducto")
 
     def __repr__(self):
         return '<Producto %r>' % self.nombre
 
+    def serialize(self, details = False):
+        imgPrincipal = list(filter(lambda x: x.esPrincipal, ImagenProducto.query.filter_by(idProducto=self.id)))
+        tags = list(map(lambda p: p.serialize(), Producto_x_Tag.query.filter_by(idProducto=self.id)))
+        if not details:
+            return {
+                "id": self.id,
+                "idUserEmpresarial": self.idUserEmpresarial,
+                "precio": self.precio,
+                "descripcion": self.descripcion,
+                "img": imgPrincipal[0].url if len(imgPrincipal) > 0 else "",
+                "tags": tags
+            }
+        else:
+            imagenes = list(map(lambda p: p.serialize(), ImagenProducto.query.filter_by(idProducto=self.id)))
+            ingredientes = list(map(lambda p: p.serialize(), Ingrediente.query.filter_by(idProducto=self.id)))
+            return {
+                "id": self.id,
+                "idUserEmpresarial": self.idUserEmpresarial,
+                "precio": self.precio,
+                "descripcion": self.descripcion,
+                "img": imgPrincipal[0].url if len(imgPrincipal) > 0 else "",
+                "imagenes": imagenes,
+                "ingredientes": ingredientes,
+                "tags": tags,
+            }
+
+class ImagenProducto(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    idProducto = db.Column(db.Integer, db.ForeignKey('producto.id'), nullable=False)
+    url = db.Column(db.String(500), nullable=True)
+    esPrincipal = db.Column(db.Boolean, nullable=False, default=False)
+
+    producto = db.relationship("Producto", lazy='subquery', backref=db.backref("ImagenProducto", cascade="all,delete"))
+    def __repr__(self):
+        return '<ImagenProducto %r>' % self.id
+
     def serialize(self):
         return {
             "id": self.id,
-            "idUserEmpresarial": self.idUserEmpresarial,
-            "precio": self.precio,
-            "descripcion": self.descripcion
+            "idProducto": self.idProducto,
+            "url": self.url,
+            "esPrincipal": self.esPrincipal
         }
 
 class Ingrediente(db.Model):
@@ -129,8 +169,9 @@ class Producto_x_Tag(db.Model):
 
     def serialize(self):
         return {
-            "id": self.id,
-            "descripcion": self.descripcion
+            "id": self.tag.id,
+            "nombre": self.tag.nombre,
+            "descripcion": self.tag.descripcion,
         }
 
 class Tag(db.Model):
