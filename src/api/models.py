@@ -86,16 +86,19 @@ class Producto(db.Model):
 
     def serialize(self, details = False):
         imgPrincipal = list(filter(lambda x: x.esPrincipal, ImagenProducto.query.filter_by(idProducto=self.id)))
+        tags = list(map(lambda p: p.serialize(), Producto_x_Tag.query.filter_by(idProducto=self.id)))
         if not details:
             return {
                 "id": self.id,
                 "idUserEmpresarial": self.idUserEmpresarial,
                 "precio": self.precio,
                 "descripcion": self.descripcion,
-                "img": imgPrincipal[0].url if len(imgPrincipal) > 0 else ""
+                "img": imgPrincipal[0].url if len(imgPrincipal) > 0 else "",
+                "tags": tags
             }
         else:
             imagenes = list(map(lambda p: p.serialize(), ImagenProducto.query.filter_by(idProducto=self.id)))
+            ingredientes = list(map(lambda p: p.serialize(), Ingrediente.query.filter_by(idProducto=self.id)))
             return {
                 "id": self.id,
                 "idUserEmpresarial": self.idUserEmpresarial,
@@ -103,6 +106,8 @@ class Producto(db.Model):
                 "descripcion": self.descripcion,
                 "img": imgPrincipal[0].url if len(imgPrincipal) > 0 else "",
                 "imagenes": imagenes,
+                "ingredientes": ingredientes,
+                "tags": tags,
             }
 
 class ImagenProducto(db.Model):
@@ -164,8 +169,9 @@ class Producto_x_Tag(db.Model):
 
     def serialize(self):
         return {
-            "id": self.id,
-            "descripcion": self.descripcion
+            "id": self.tag.id,
+            "nombre": self.tag.nombre,
+            "descripcion": self.tag.descripcion,
         }
 
 class Tag(db.Model):
