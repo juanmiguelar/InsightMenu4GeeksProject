@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 export const CuentaCrear = () => {
+	const [nombre, setNombre] = useState("");
+	const [esCuentaEmpresarial, setEsCuentaEmpresarial] = useState(false);
+
+	const handleNombre = e => {
+		setNombre(e.target.value);
+	};
+
+	const handleEsCuentaEmpresarial = e => {
+		setEsCuentaEmpresarial(e.target.checked);
+	};
+
 	return (
 		<div className="container">
 			<div className="row justify-content-center">
@@ -22,6 +33,10 @@ export const CuentaCrear = () => {
 									name=""
 									placeholder="Nombre"
 									aria-describedby="user"
+									value={nombre}
+									onChange={e => {
+										handleNombre(e);
+									}}
 									required
 								/>
 							</div>
@@ -98,7 +113,15 @@ export const CuentaCrear = () => {
 						</div>
 						<div>
 							<div className="form-check">
-								<input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+								<input
+									className="form-check-input"
+									type="checkbox"
+									value={esCuentaEmpresarial}
+									id="defaultCheck1"
+									onChange={e => {
+										handleEsCuentaEmpresarial(e);
+									}}
+								/>
 								<label className="form-check-label" htmlFor="defaultCheck1">
 									Seleccione si es una cuenta empresarial
 								</label>
