@@ -1,8 +1,51 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import salad from "../../img/salad.jpg";
 
 export const Carrito = () => {
+	const { store, actions } = useContext(Context);
+
+	const MostrarListaProductosEnCarrito = () => {
+		return store.carrito.map((item, index) => {
+			return GenerarUnItem(item, index);
+		});
+	};
+
+	const GenerarUnItem = (item, index) => {
+		return (
+			<div className="container-fluid" key={index}>
+				<div className="m-2 row justify-content-start">
+					<div className="col col-lg-3">
+						<img src={item.img} className="img-thumbnail" />
+					</div>
+					<div className="col col-lg-3">
+						<h3 className="my-0">{item.nombre}</h3>
+					</div>
+					<div className="col col-lg-3">
+						<h3 className="my-0">{item.precio}</h3>
+					</div>
+					<div className="col col-lg-3 text-left">
+						<div className="form-group text-left">
+							<label htmlFor="exampleFormControlSelect1" />
+							<select className="form-control text-left" id="exampleFormControlSelect1">
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+							<button type="button" className="m-4 btn btn-outline-danger btn-sm">
+								Eliminar platillo
+							</button>
+							<div className="container-fluid">
+								<h6 className="my-0 text-left">Subtotal: $20</h6>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	};
+
 	return (
 		<div className="container">
 			<div className="row">
@@ -45,37 +88,7 @@ export const Carrito = () => {
 							</div>
 						</div>
 
-						<div className="container-fluid">
-							<div className="m-2 row justify-content-start">
-								<div className="col col-lg-3">
-									<img src={salad} className="img-thumbnail" />
-								</div>
-								<div className="col col-lg-3">
-									<h3 className="my-0">Ensalada Cesar</h3>
-								</div>
-								<div className="col col-lg-3">
-									<h3 className="my-0">$20</h3>
-								</div>
-								<div className="col col-lg-3 text-left">
-									<div className="form-group text-left">
-										<label htmlFor="exampleFormControlSelect1" />
-										<select className="form-control text-left" id="exampleFormControlSelect1">
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
-										</select>
-										<button type="button" className="m-4 btn btn-outline-danger btn-sm">
-											Eliminar platillo
-										</button>
-										<div className="container-fluid">
-											<h6 className="my-0 text-left">Subtotal: $20</h6>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						{MostrarListaProductosEnCarrito()}
 					</div>
 				</div>
 			</div>
