@@ -79,6 +79,7 @@ class Producto(db.Model):
     descripcion = db.Column(db.String(500), nullable=True)
 
     userEmpresarial = db.relationship("User", lazy='subquery', backref=db.backref("Producto", cascade="all,delete"))
+    imagenes = db.relationship("ImagenProducto")
 
     def __repr__(self):
         return '<Producto %r>' % self.nombre
