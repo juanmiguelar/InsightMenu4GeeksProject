@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 export const CuentaRecuperar3 = () => {
+	const [password, setPassword] = useState("");
+	const [repassword, setRePassword] = useState("");
+
+	const handlePassword = e => {
+		setPassword(e.target.value);
+	};
+
+	const handleRePassword = e => {
+		setRePassword(e.target.value);
+	};
+
 	return (
 		<div className="container">
 			<div className="row justify-content-center">
@@ -11,8 +22,8 @@ export const CuentaRecuperar3 = () => {
 								<h4>Nueva Contraseña</h4> <span>Ingrese su nueva contraseña</span>
 								<div className="input-group mb-2">
 									<div className="input-group-prepend">
-										<span className="input-group-text" id="envelope">
-											<i className="far fa-envelope" />
+										<span className="input-group-text">
+											<i className="fa fa-lock" />
 										</span>
 									</div>
 									<input
@@ -21,13 +32,17 @@ export const CuentaRecuperar3 = () => {
 										name=""
 										placeholder="Nueva contraseña"
 										aria-describedby="envelope"
+										value={password}
+										onChange={e => {
+											handlePassword(e);
+										}}
 										required
 									/>
 								</div>
 								<div className="input-group mb-1">
 									<div className="input-group-prepend">
-										<span className="input-group-text" id="envelopeopen">
-											<i className="far fa-envelope-open" />
+										<span className="input-group-text">
+											<i className="fas fa-unlock" />
 										</span>
 									</div>
 									<input
@@ -35,7 +50,11 @@ export const CuentaRecuperar3 = () => {
 										className="form-control"
 										name=""
 										placeholder="Confirme nueva contraseña"
-										aria-describedby="envelopeopen"
+										aria-describedby="efas fa-unlock"
+										value={repassword}
+										onChange={e => {
+											handleRePassword(e);
+										}}
 										required
 									/>
 								</div>

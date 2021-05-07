@@ -2,10 +2,35 @@ import React, { useState } from "react";
 
 export const CuentaCrear = () => {
 	const [nombre, setNombre] = useState("");
+	const [email, setEmail] = useState("");
+	const [direccion, setDireccion] = useState("");
+	const [telefono, setTelefono] = useState("");
+	const [password, setPassword] = useState("");
+	const [repassword, setRePassword] = useState("");
 	const [esCuentaEmpresarial, setEsCuentaEmpresarial] = useState(false);
 
 	const handleNombre = e => {
 		setNombre(e.target.value);
+	};
+
+	const handleEmail = e => {
+		setEmail(e.target.value);
+	};
+
+	const handleDireccion = e => {
+		setDireccion(e.target.value);
+	};
+
+	const handleTelefono = e => {
+		setTelefono(e.target.value);
+	};
+
+	const handlePassword = e => {
+		setPassword(e.target.value);
+	};
+
+	const handleRePassword = e => {
+		setRePassword(e.target.value);
 	};
 
 	const handleEsCuentaEmpresarial = e => {
@@ -31,11 +56,30 @@ export const CuentaCrear = () => {
 									type="text"
 									className="form-control"
 									name=""
-									placeholder="Nombre"
+									placeholder="Nombre" // Nombre
 									aria-describedby="user"
 									value={nombre}
 									onChange={e => {
 										handleNombre(e);
+									}}
+									required
+								/>
+							</div>
+							<div className="input-group mb-2">
+								<div className="input-group-prepend">
+									<span className="input-group-text" id="user">
+										<i className="far fa-envelope" />
+									</span>
+								</div>
+								<input
+									type="email"
+									className="form-control"
+									name=""
+									placeholder="Email" // Email
+									aria-describedby="user"
+									value={email}
+									onChange={e => {
+										handleEmail(e);
 									}}
 									required
 								/>
@@ -50,8 +94,12 @@ export const CuentaCrear = () => {
 									type="text"
 									className="form-control"
 									name=""
-									placeholder="Dirección Física"
+									placeholder="Dirección Física" // Direccion
 									aria-describedby="address"
+									value={direccion}
+									onChange={e => {
+										handleDireccion(e);
+									}}
 									required
 								/>
 							</div>
@@ -66,8 +114,12 @@ export const CuentaCrear = () => {
 									pattern="[0-9]{4}-[0-9]{4}"
 									className="form-control"
 									name=""
-									placeholder="Teléfono"
+									placeholder="Teléfono" // Telefono
 									aria-describedby="telephone"
+									value={telefono}
+									onChange={e => {
+										handleTelefono(e);
+									}}
 									required
 								/>
 							</div>
@@ -81,8 +133,12 @@ export const CuentaCrear = () => {
 									type="password"
 									className="form-control"
 									name=""
-									placeholder="Contraseña"
+									placeholder="Contraseña" // Contraseña
 									aria-describedby="contrasenna"
+									value={password}
+									onChange={e => {
+										handlePassword(e);
+									}}
 									required
 								/>
 							</div>
@@ -96,8 +152,12 @@ export const CuentaCrear = () => {
 									type="password"
 									className="form-control"
 									name=""
-									placeholder="Repetir Contraseña"
+									placeholder="Repetir Contraseña" // Repetir Contraseña
 									aria-describedby="contrasenna2"
+									value={repassword}
+									onChange={e => {
+										handleRePassword(e);
+									}}
 									required
 								/>
 							</div>
@@ -105,16 +165,8 @@ export const CuentaCrear = () => {
 
 						<div>
 							<div className="form-check">
-								<input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-								<label className="form-check-label">
-									Acepta las políticas de seguridad y condiciones de servicio
-								</label>
-							</div>
-						</div>
-						<div>
-							<div className="form-check">
 								<input
-									className="form-check-input"
+									className="form-check-input" // Checkbox Cuenta Empresarial
 									type="checkbox"
 									value={esCuentaEmpresarial}
 									id="defaultCheck1"

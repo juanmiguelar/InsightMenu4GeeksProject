@@ -18,6 +18,7 @@ import { CuentaIniciar } from "./component/cuentainiciar";
 import { CuentaRecuperar1 } from "./component/cuentarecuperar1";
 import { CuentaRecuperar2 } from "./component/cuentarecuperar2";
 import { CuentaRecuperar3 } from "./component/cuentarecuperar3";
+import { CuentaRecuperar4 } from "./component/cuentarecuperar4";
 
 //create your first component
 const Layout = () => {
@@ -51,6 +52,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/cuentarecuperar3">
 							<CuentaRecuperar3 />
+						</Route>
+						<Route exact path="/cuentarecuperar4">
+							<CuentaRecuperar4 />
 						</Route>
 						<Route exact path="/detalleplatillo/:id">
 							<Detalleplatillo />

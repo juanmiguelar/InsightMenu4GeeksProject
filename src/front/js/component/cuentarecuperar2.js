@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const CuentaRecuperar2 = () => {
+	const [codigo, setCodigo] = useState("");
+
+	const handleCodigo = e => {
+		setCodigo(e.target.value);
+	};
+
 	return (
 		<div className="container">
 			<div className="row justify-content-center">
@@ -19,17 +25,21 @@ export const CuentaRecuperar2 = () => {
 										</span>
 									</div>
 									<input
-										type="password"
+										type="number"
 										className="form-control"
 										name=""
 										placeholder="Ingrese el código"
-										aria-describedby="envelope"
+										aria-describedby="number"
+										value={codigo}
+										onChange={e => {
+											handleCodigo(e);
+										}}
 										required
 									/>
 								</div>
 							</div>
 							<div className="mt-2">
-								<Link to={"/cuentarecuperar3"}>
+								<Link to={"/cuentarecuperar3"} style={{ textDecoration: "none" }}>
 									<button className="btn btn-info btn-block">Crear mi Cuenta</button>
 								</Link>
 							</div>
