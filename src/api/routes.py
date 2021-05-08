@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Pedido, DetallePedido, Producto, Ingrediente, Producto_x_Tag, Tag
 from api.utils import generate_sitemap, APIException, ToObj, ToObj_Array
-from api.email_helper import SendTestEmailWithTemplate
+from api.email_helper import SendTestEmailWithTemplate, SendEmailTemplate
 
 api = Blueprint('api', __name__)
 
@@ -54,9 +54,25 @@ def Login():
     user = User.query.filter_by(email=email, password=password).first()
     if user is None:
         # the user was not found on the database
-        return jsonify({"msg": "Bad username or password"}), 401
+        return jsonify({"msg": "Usuario o contraseña incorrecta"}), 401
     access_token = create_access_token(identity=user.id)
-    return jsonify({ "token": access_token, "user_id": user.id })
+    return jsonify({ "token": access_token, "idUser": user.id })
+
+@api.route('/register', methods=['POST'])
+def Register():
+    newUser = ToObj(request.json, User())
+    print(newUser.serialize())
+    userExiste = User.query.filter_by(email=newUser.email).first()
+    if userExiste is not None:
+        # the user was not found on the database
+        return jsonify({"msg": "Email ya registrado"}), 409 
+    else:
+        db.session.add(newUser)
+        db.session.commit()
+        SendEmailTemplate('bienvenido', newUser.serialize(), newUser.email, f'Bienvenido a Insight Menu {newUser.nombre}!')
+        return jsonify({"msg": "Usuario creado!"}), 200 
+   
+    
 ### USER END###
 
 ### PEDIDO ###
