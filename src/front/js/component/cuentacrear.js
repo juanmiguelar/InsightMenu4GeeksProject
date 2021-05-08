@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import withReactContent from "sweetalert2-react-content";
+import "sweetalert2/src/sweetalert2.scss";
 
 export const CuentaCrear = () => {
 	const [nombre, setNombre] = useState("");
@@ -8,6 +11,23 @@ export const CuentaCrear = () => {
 	const [password, setPassword] = useState("");
 	const [repassword, setRePassword] = useState("");
 	const [esCuentaEmpresarial, setEsCuentaEmpresarial] = useState(false);
+
+	const MySwal = withReactContent(Swal);
+
+	const Register = () => {
+		// alert(nombre, email, direccion, telefono, password, repassword);
+		MySwal.fire({
+			title: <p>Crear Cuenta</p>,
+			icon: "info",
+			showConfirmButton: false,
+			timer: 2000,
+			didOpen: () => {
+				MySwal.clickConfirm();
+			}
+		}).then(() => {
+			return MySwal.fire(<p>Su cuenta se ha agregado satisfactoriamente.</p>);
+		});
+	};
 
 	const handleNombre = e => {
 		setNombre(e.target.value);
@@ -162,7 +182,6 @@ export const CuentaCrear = () => {
 								/>
 							</div>
 						</div>
-
 						<div>
 							<div className="form-check">
 								<input
@@ -180,7 +199,9 @@ export const CuentaCrear = () => {
 							</div>
 						</div>
 						<div className="mt-2 justify-content-center">
-							<button className="btn btn-info btn-block">Crear mi Cuenta</button>
+							<button className="btn btn-info btn-block" onClick={Register}>
+								Crear mi Cuenta
+							</button>
 						</div>
 					</div>
 				</div>
