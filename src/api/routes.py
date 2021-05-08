@@ -4,11 +4,20 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Pedido, DetallePedido, Producto, Ingrediente, Producto_x_Tag, Tag
 from api.utils import generate_sitemap, APIException, ToObj, ToObj_Array
+from api.email_helper import SendTestEmailWithTemplate
 
 api = Blueprint('api', __name__)
 
 @api.route('/alive', methods=['GET'])
 def alive():
+    response_body = {
+        "message": "Alive"
+    }
+    return jsonify(response_body), 200
+
+@api.route('/email', methods=['GET'])
+def emailTest():
+    SendTestEmailWithTemplate()
     response_body = {
         "message": "Alive"
     }
