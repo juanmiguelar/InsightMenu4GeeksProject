@@ -44,6 +44,13 @@ def GetProductById(id):
         return "El producto no existe", 404
 ### PRODUCTO END ###
 
+### TAG ###
+@api.route('/tag', methods=['GET'])
+def GetAllTag():
+    tags = list(map(lambda p: p.serialize(), Tag.query.all()))
+    return jsonify(tags), 200  
+### END TAG ###
+
 ### USER ###
 @api.route('/user/<int:id>', methods=['GET'])
 def GetUserById(id):
@@ -67,7 +74,6 @@ def Login():
 @api.route('/register', methods=['POST'])
 def Register():
     newUser = ToObj(request.json, User())
-    print(newUser.serialize())
     userExiste = User.query.filter_by(email=newUser.email).first()
     if userExiste is not None:
         # the user was not found on the database
@@ -77,8 +83,6 @@ def Register():
         db.session.commit()
         SendEmailTemplate('bienvenido', newUser.serialize(), newUser.email, f'Bienvenido a Insight Menu {newUser.nombre}!')
         return jsonify({"msg": "Usuario creado!"}), 200 
-   
-    
 ### USER END###
 
 ### PEDIDO ###
