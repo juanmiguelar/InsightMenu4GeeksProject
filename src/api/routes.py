@@ -1,8 +1,9 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+import shortuuid
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Pedido, DetallePedido, Producto, Ingrediente, Producto_x_Tag, Tag
+from api.models import db, User, Pedido, DetallePedido, Producto, Ingrediente, Producto_x_Tag, Tag, RecuperarContrasenna
 from api.utils import generate_sitemap, APIException, ToObj, ToObj_Array
 from api.email_helper import SendTestEmailWithTemplate, SendEmailTemplate
 
@@ -44,6 +45,13 @@ def GetProductById(id):
         return "El producto no existe", 404
 ### PRODUCTO END ###
 
+### TAG ###
+@api.route('/tag', methods=['GET'])
+def GetAllTag():
+    tags = list(map(lambda p: p.serialize(), Tag.query.all()))
+    return jsonify(tags), 200  
+### END TAG ###
+
 ### USER ###
 @api.route('/user/<int:id>', methods=['GET'])
 def GetUserById(id):
@@ -67,7 +75,6 @@ def Login():
 @api.route('/register', methods=['POST'])
 def Register():
     newUser = ToObj(request.json, User())
-    print(newUser.serialize())
     userExiste = User.query.filter_by(email=newUser.email).first()
     if userExiste is not None:
         # the user was not found on the database
@@ -77,8 +84,54 @@ def Register():
         db.session.commit()
         SendEmailTemplate('bienvenido', newUser.serialize(), newUser.email, f'Bienvenido a Insight Menu {newUser.nombre}!')
         return jsonify({"msg": "Usuario creado!"}), 200 
-   
-    
+
+@api.route('/recuperar', methods=['POST'])
+def POSTRecuperar():
+    email = request.json.get("email", None)
+    userExiste = User.query.filter_by(email=email).first()
+    if userExiste is not None:
+        # Generar codigo y relacionarlo con este correo
+        codigo = shortuuid.uuid()
+        # Buscar si ya existe un codigo para este email
+        registro = RecuperarContrasenna.query.filter_by(email=email).first()
+        if registro is not None:
+            registro.codigo = codigo
+        else:
+            # Crear un registro en RecuperarContrasenna
+            registro = RecuperarContrasenna(email=email, codigo=codigo)
+            db.session.add(registro)
+
+        SendEmailTemplate('codigo_generado', registro.serialize(), email, f'Insight Menu: recuperar contraseña')
+        db.session.commit()
+        return jsonify({"msg": "Codigo generado! Revisa tu correo"}), 200 
+    else:
+        return jsonify({"msg": "Correo no encontrado!"}), 404 
+
+@api.route('/recuperar/validar', methods=['POST'])
+def POSTRecuperarValidar():
+    email = request.json.get("email", None)
+    codigo = request.json.get("codigo", None)
+    registro = RecuperarContrasenna.query.filter_by(email=email, codigo=codigo).first()
+    if registro is not None:
+        # Borrar el registro
+        db.session.delete(registro)
+        db.session.commit()
+        return jsonify({"msg": "Código correcto!"}), 200 
+    else:
+        return jsonify({"msg": "Registro no encontrado."}), 404 
+
+@api.route('/recuperar', methods=['PUT'])
+def PUTRecuperar():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    userExiste = User.query.filter_by(email=email).first()
+    if userExiste is not None:
+        # Actualizar la contrasenna
+        userExiste.password = password
+        db.session.commit()
+        return jsonify({"msg": "Usuario actualizado!"}), 200 
+    else:
+        return jsonify({"msg": "Usuario no encontrado!"}), 404 
 ### USER END###
 
 ### PEDIDO ###

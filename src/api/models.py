@@ -92,6 +92,7 @@ class Producto(db.Model):
             return {
                 "id": self.id,
                 "idUserEmpresarial": self.idUserEmpresarial,
+                "nombre": self.nombre,
                 "precio": self.precio,
                 "descripcion": self.descripcion,
                 "img": imgPrincipal[0].url if len(imgPrincipal) > 0 else "",
@@ -103,6 +104,7 @@ class Producto(db.Model):
             return {
                 "id": self.id,
                 "idUserEmpresarial": self.idUserEmpresarial,
+                "nombre": self.nombre,
                 "precio": self.precio,
                 "descripcion": self.descripcion,
                 "img": imgPrincipal[0].url if len(imgPrincipal) > 0 else "",
@@ -149,6 +151,7 @@ class Ingrediente(db.Model):
         return {
             "id": self.id,
             "idProducto": self.idProducto,
+            "nombre": self.nombre,
             "orden": self.orden,
             "descripcion": self.descripcion,
             "gramos": self.gramos,
@@ -186,5 +189,21 @@ class Tag(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "nombre": self.nombre,
             "descripcion": self.descripcion
+        }
+
+class RecuperarContrasenna(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    codigo = db.Column(db.String(100), nullable=True)
+
+    def __repr__(self):
+        return '<RecuperarContrasenna %r>' % self.codigo
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "codigo": self.codigo
         }
