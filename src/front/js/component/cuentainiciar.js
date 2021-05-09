@@ -1,16 +1,72 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const CuentaIniciar = () => {
+	// Store
+	const { store, actions } = useContext(Context);
+
+	// Estados del componente
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [error, setError] = useState("");
 
+	// Eventos
 	const handleEmail = e => {
 		setEmail(e.target.value);
 	};
 
 	const handlePassword = e => {
 		setPassword(e.target.value);
+	};
+
+	// Funciones
+
+	const Validar = () => {
+		if (email === "" || password === "") {
+			setError("Los campso son requeridos");
+			return false;
+		} else {
+			setError("");
+			return true;
+		}
+	};
+
+	const InicioSession = () => {
+		// Obtener los datos
+		const esValido = Validar();
+		if (esValido) {
+			// llamar al api
+		} else {
+			// no hacer nada
+		}
+		// El llamado del API
+		var myHeaders = new Headers();
+		myHeaders.append("Content-Type", store.CONTENT_TYPE);
+
+		let body = JSON.stringify({
+			email: email,
+			password: password
+		});
+
+		var requestOptions = {
+			method: store.POST,
+			headers: myHeaders,
+			body: body
+		};
+
+		fetch(store.API_URL + "/login", requestOptions)
+			.then(response => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw Error(response.json());
+				}
+			})
+			.then(result => {
+				console.log("ok");
+			})
+			.catch(error => {});
 	};
 
 	return (
@@ -75,7 +131,14 @@ export const CuentaIniciar = () => {
 								</div>
 							</div>
 							<div className="mt-2">
-								<button className="btn btn-info btn-block">Inicio de Sesión</button>
+								<p className="text-danger">{error}</p>
+								<button
+									className="btn btn-info btn-block"
+									onClick={e => {
+										InicioSession(e);
+									}}>
+									Inicio de Sesión
+								</button>
 							</div>
 						</div>
 					</div>
