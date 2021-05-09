@@ -83,6 +83,20 @@ def Register():
         db.session.commit()
         SendEmailTemplate('bienvenido', newUser.serialize(), newUser.email, f'Bienvenido a Insight Menu {newUser.nombre}!')
         return jsonify({"msg": "Usuario creado!"}), 200 
+
+@api.route('/recuperar', methods=['PUT'])
+def PUTRecuperar():
+    id = request.json.get("id", None)
+    password = request.json.get("password", None)
+
+    userExiste = User.query.get(id)
+    if userExiste is not None:
+        # Actualizar la contrasenna
+        userExiste.password = password
+        db.session.commit()
+        return jsonify({"msg": "Usuario actualizado!"}), 200 
+    else:
+        return jsonify({"msg": "Usuario no encontrado!"}), 404 
 ### USER END###
 
 ### PEDIDO ###
