@@ -18,7 +18,7 @@ export const CuentaCrear = () => {
 		// alert(nombre, email, direccion, telefono, password, repassword);
 		MySwal.fire({
 			title: <p>Crear Cuenta</p>,
-			icon: "info",
+			icon: "success",
 			showConfirmButton: false,
 			timer: 2000,
 			didOpen: () => {
