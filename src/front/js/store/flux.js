@@ -1,17 +1,27 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			API_URL: "https://3001-maroon-beetle-2jn5kz80.ws-us03.gitpod.io/api",
+			CONTENT_TYPE: "application/json",
+			POST: "POST",
+			GET: "GET",
+			PUT: "PUT",
+			DELETE: "DELETE",
 			message: null,
 			carrito: [
 				{
+					id: 1,
 					nombre: "Pinto",
 					precio: 1500,
-					img: "https://i.ibb.co/tMMR78y/image.png"
+					img: "https://i.ibb.co/tMMR78y/image.png",
+					cantidad: 2
 				},
 				{
+					id: 2,
 					nombre: "Ensalada Cheems",
 					precio: 2300,
-					img: "https://i.ibb.co/tMMR78y/image.png"
+					img: "https://i.ibb.co/tMMR78y/image.png",
+					cantidad: 3
 				}
 			],
 			platillo: [
@@ -28,12 +38,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					img: "https://t1.rg.ltmcdn.com/es/images/8/0/2/ensalada_de_papa_y_huevo_cocido_35208_600_square.jpg"
 				}
 			],
-			tags: [
-				{
-					id: 1,
-					nombre: "veggie"
-				}
-			],
+			tags: [],
 			demo: [
 				{
 					title: "FIRST",
@@ -73,6 +78,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			loadTags: () => {
+				fetch(getStore().API_URL + "/tag", {
+					method: getStore().GET,
+					headers: {}
+				})
+					.then(response => {
+						return response.json();
+					})
+					.then(data => {
+						setStore({ tags: data });
+					})
+					.catch(err => {
+						console.error(err);
+					});
+			},
+			eliminarPlatillo: id => {
+				const nuevoCarrito = getStore().carrito.filter((item, index) => {
+					return item.id != id;
+				});
+
+				setStore({ carrito: nuevoCarrito });
 			}
 		}
 	};

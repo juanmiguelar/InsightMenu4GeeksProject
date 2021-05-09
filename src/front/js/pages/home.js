@@ -15,6 +15,23 @@ import "../../styles/home.scss";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
+
+	const MostrarTags = () => {
+		return store.tags.map((item, index) => {
+			return GenerarTag(item, index);
+		});
+	};
+
+	const GenerarTag = (item, index) => {
+		return (
+			<li className="nav-item" key={index}>
+				<a className="nav-link" href="#">
+					<span className="badge badge-pill badge-primary">{item.nombre}</span>
+				</a>
+			</li>
+		);
+	};
+
 	const Mostrarplatillos = () => {
 		return (
 			<div className="container-fluid characters mt-5">
@@ -112,33 +129,7 @@ export const Home = () => {
 							<span className="navbar-toggler-icon" />
 						</button>
 						<div className="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-							<ul className="navbar-nav nav-fill w-50">
-								<li className="nav-item active">
-									<a className="nav-link" href="#">
-										<span className="badge badge-pill badge-primary">Vegetariano</span>
-									</a>
-								</li>
-								<li className="nav-item">
-									<a className="nav-link" href="#">
-										<span className="badge badge-pill badge-secondary">Diabético</span>
-									</a>
-								</li>
-								<li className="nav-item">
-									<a className="nav-link" href="#">
-										<span className="badge badge-pill badge-success">Light</span>
-									</a>
-								</li>
-								<li className="nav-item">
-									<a className="nav-link" href="#">
-										<span className="badge badge-pill badge-danger">Picante</span>
-									</a>
-								</li>
-								<li className="nav-item">
-									<a className="nav-link" href="#">
-										<span className="badge badge-pill badge-warning">Cero Grasa</span>
-									</a>
-								</li>
-							</ul>
+							<ul className="navbar-nav nav-fill w-50">{MostrarTags()}</ul>
 						</div>
 					</nav>
 				</div>

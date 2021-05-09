@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
+import { useParams } from "react-router-dom";
 import salad1med from "../../img/salad1med.jpg";
 import salad1small from "../../img/salad1small.jpg";
 import salad2med from "../../img/salad2med.jpg";
@@ -12,6 +13,72 @@ import salad4small from "../../img/salad4peq.jpg";
 import "../../styles/detalleplatillo.scss";
 
 export const Detalleplatillo = () => {
+	const params = useParams();
+	const [tags, setTags] = useState([]);
+	const [imagenes, setImagenes] = useState([]);
+	const [nombre, setNombre] = useState("");
+
+	useEffect(() => {
+		ObtenerInformacionPlatillo();
+	}, []);
+
+	const ObtenerInformacionPlatillo = () => {
+		let idPlatillo = params.id;
+
+		fetch("https://3001-maroon-beetle-2jn5kz80.ws-us03.gitpod.io/api/producto/" + idPlatillo, {
+			method: "GET",
+			headers: {}
+		})
+			.then(response => {
+				return response.json();
+			})
+			.then(data => {
+				// Procesamos la informacion
+				ProcesarInformacionPlatillo(data);
+			})
+			.catch(err => {
+				console.error(err);
+			});
+	};
+
+	const ProcesarInformacionPlatillo = data => {
+		setTags(data.tags);
+		setNombre(data.nombre);
+		setImagenes(data.imagenes);
+	};
+
+	const MostrarTags = () => {
+		return tags.map((item, index) => {
+			return GenerarTag(item, index);
+		});
+	};
+
+	const GenerarTag = (item, index) => {
+		return (
+			<span className="badge badge-pill badge-primary" key={index}>
+				{item.nombre}
+			</span>
+		);
+	};
+
+	const MostrarImagenes = () => {
+		const myvar = imagenes.map((item, index) => {
+			return GenerarImagen(item, index);
+		});
+		console.log(myvar);
+		return myvar;
+	};
+
+	const GenerarImagen = (item, index) => {
+		const esActive = index == 0;
+		const classActive = esActive ? "active" : "";
+		return (
+			<div className={"carousel-item " + classActive} key={index}>
+				<img src={item.url} className="d-block img-responsive imagemaxheight" alt="..." />
+			</div>
+		);
+	};
+
 	return (
 		<div className="container">
 			<div className="row">
@@ -22,17 +89,7 @@ export const Detalleplatillo = () => {
 							<li data-target="#carouselExampleIndicators" data-slide-to="1" />
 							<li data-target="#carouselExampleIndicators" data-slide-to="2" />
 						</ol>
-						<div className="carousel-inner">
-							<div className="carousel-item active">
-								<img src={salad1med} className="d-block img-responsive imagemaxheight" alt="..." />
-							</div>
-							<div className="carousel-item">
-								<img src={salad2med} className="d-block img-responsive imagemaxheight" alt="..." />
-							</div>
-							<div className="carousel-item">
-								<img src={salad3med} className="d-block img-responsive imagemaxheight" alt="..." />
-							</div>
-						</div>
+						<div className="carousel-inner">{MostrarImagenes()}</div>
 						<a
 							className="carousel-control-prev"
 							href="#carouselExampleIndicators"
@@ -54,12 +111,8 @@ export const Detalleplatillo = () => {
 				<div className="col-xs-12 col-sm-8 col-md-7 col-lg-6">
 					{/* <!--description start--> */}
 					<div className="dishdetails">
-						<div className="Tags float-right">
-							<span className="badge badge-pill badge-primary">Vegetariano</span>
-							<span className="badge badge-pill badge-secondary">Diabético</span>
-							<span className="badge badge-pill badge-success">Light</span>
-						</div>
-						<h1>Ensalada Verde</h1>
+						<div className="Tags float-right">{MostrarTags()}</div>
+						<h1>{nombre}</h1>
 						<h2>Descripción breve del platillo:</h2>
 						<p className="product-description">
 							Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae

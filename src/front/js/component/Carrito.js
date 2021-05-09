@@ -10,6 +10,14 @@ export const Carrito = () => {
 		});
 	};
 
+	const CalcularSubTotalItem = item => {
+		return item.cantidad * item.precio;
+	};
+
+	const EliminarPlatillo = item => {
+		actions.eliminarPlatillo(item.id);
+	};
+
 	const GenerarUnItem = (item, index) => {
 		return (
 			<div className="container-fluid" key={index}>
@@ -32,12 +40,22 @@ export const Carrito = () => {
 								<option>3</option>
 								<option>4</option>
 								<option>5</option>
+								<option>6</option>
+								<option>7</option>
+								<option>8</option>
+								<option>9</option>
+								<option>10</option>
 							</select>
-							<button type="button" className="m-4 btn btn-outline-danger btn-sm">
+							<button
+								type="button"
+								className="m-4 btn btn-outline-danger btn-sm"
+								onClick={e => {
+									EliminarPlatillo(item);
+								}}>
 								Eliminar platillo
 							</button>
 							<div className="container-fluid">
-								<h6 className="my-0 text-left">Subtotal: $20</h6>
+								<h6 className="my-0 text-left">Subtotal: {CalcularSubTotalItem(item)}</h6>
 							</div>
 						</div>
 					</div>
