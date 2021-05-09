@@ -1,10 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import ceviche from "../../img/ceviche.jpg";
 import cereal from "../../img/cereal2.jpg";
-import ensalada from "../../img/ensalada2.jpg";
-import pinto from "../../img/pinto.jpg";
 import pizza from "../../img/pizza2.jpg";
 import carne from "../../img/carne.jpg";
 import cake from "../../img/cake.jpg";
@@ -118,27 +115,27 @@ export const Home = () => {
 							<ul className="navbar-nav nav-fill w-50">
 								<li className="nav-item active">
 									<a className="nav-link" href="#">
-										Tag1 <span className="sr-only">(current)</span>
+										<span className="badge badge-pill badge-primary">Vegetariano</span>
 									</a>
 								</li>
 								<li className="nav-item">
 									<a className="nav-link" href="#">
-										Tag2
+										<span className="badge badge-pill badge-secondary">Diabético</span>
 									</a>
 								</li>
 								<li className="nav-item">
 									<a className="nav-link" href="#">
-										Tag3
+										<span className="badge badge-pill badge-success">Light</span>
 									</a>
 								</li>
 								<li className="nav-item">
 									<a className="nav-link" href="#">
-										Tag4
+										<span className="badge badge-pill badge-danger">Picante</span>
 									</a>
 								</li>
 								<li className="nav-item">
 									<a className="nav-link" href="#">
-										Tag5
+										<span className="badge badge-pill badge-warning">Cero Grasa</span>
 									</a>
 								</li>
 							</ul>
