@@ -55,9 +55,9 @@ export const Detalleplatillo = () => {
 					{/* <!--description start--> */}
 					<div className="dishdetails">
 						<div className="Tags float-right">
-							<span className="badge badge-pill badge-primary">Primary</span>
-							<span className="badge badge-pill badge-secondary">Secondary</span>
-							<span className="badge badge-pill badge-success">Success</span>
+							<span className="badge badge-pill badge-primary">Vegetariano</span>
+							<span className="badge badge-pill badge-secondary">Diabético</span>
+							<span className="badge badge-pill badge-success">Light</span>
 						</div>
 						<h1>Ensalada Verde</h1>
 						<h2>Descripción breve del platillo:</h2>
@@ -97,10 +97,11 @@ export const Detalleplatillo = () => {
 										</div>
 										<div className="modal-body">
 											<ol className="list-group">
-												<li className="list-group-item">Gramos:</li>
-												<li className="list-group-item">Calorías:</li>
-												<li className="list-group-item">Preparación:</li>
 												<li className="list-group-item">Azúcar:</li>
+												<li className="list-group-item">Calorías:</li>
+												<li className="list-group-item">Descripción:</li>
+												<li className="list-group-item">Gramos:</li>
+												<li className="list-group-item">Preparación:</li>
 											</ol>
 										</div>
 										<div className="modal-footer">
