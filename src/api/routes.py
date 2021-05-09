@@ -107,6 +107,19 @@ def POSTRecuperar():
     else:
         return jsonify({"msg": "Correo no encontrado!"}), 404 
 
+@api.route('/recuperar/validar', methods=['POST'])
+def POSTRecuperarValidar():
+    email = request.json.get("email", None)
+    codigo = request.json.get("codigo", None)
+    registro = RecuperarContrasenna.query.filter_by(email=email, codigo=codigo).first()
+    if registro is not None:
+        # Borrar el registro
+        db.session.delete(registro)
+        db.session.commit()
+        return jsonify({"msg": "Código correcto!"}), 200 
+    else:
+        return jsonify({"msg": "Registro no encontrado."}), 404 
+
 @api.route('/recuperar', methods=['PUT'])
 def PUTRecuperar():
     email = request.json.get("email", None)
