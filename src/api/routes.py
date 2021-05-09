@@ -1,8 +1,9 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+import shortuuid
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Pedido, DetallePedido, Producto, Ingrediente, Producto_x_Tag, Tag
+from api.models import db, User, Pedido, DetallePedido, Producto, Ingrediente, Producto_x_Tag, Tag, RecuperarContrasenna
 from api.utils import generate_sitemap, APIException, ToObj, ToObj_Array
 from api.email_helper import SendTestEmailWithTemplate, SendEmailTemplate
 
@@ -84,12 +85,33 @@ def Register():
         SendEmailTemplate('bienvenido', newUser.serialize(), newUser.email, f'Bienvenido a Insight Menu {newUser.nombre}!')
         return jsonify({"msg": "Usuario creado!"}), 200 
 
+@api.route('/recuperar', methods=['POST'])
+def POSTRecuperar():
+    email = request.json.get("email", None)
+    userExiste = User.query.filter_by(email=email).first()
+    if userExiste is not None:
+        # Generar codigo y relacionarlo con este correo
+        codigo = shortuuid.uuid()
+        # Buscar si ya existe un codigo para este email
+        registro = RecuperarContrasenna.query.filter_by(email=email).first()
+        if registro is not None:
+            registro.codigo = codigo
+        else:
+            # Crear un registro en RecuperarContrasenna
+            registro = RecuperarContrasenna(email=email, codigo=codigo)
+            db.session.add(registro)
+
+        SendEmailTemplate('codigo_generado', registro.serialize(), email, f'Insight Menu: recuperar contraseña')
+        db.session.commit()
+        return jsonify({"msg": "Codigo generado! Revisa tu correo"}), 200 
+    else:
+        return jsonify({"msg": "Correo no encontrado!"}), 404 
+
 @api.route('/recuperar', methods=['PUT'])
 def PUTRecuperar():
-    id = request.json.get("id", None)
+    email = request.json.get("email", None)
     password = request.json.get("password", None)
-
-    userExiste = User.query.get(id)
+    userExiste = User.query.filter_by(email=email).first()
     if userExiste is not None:
         # Actualizar la contrasenna
         userExiste.password = password
