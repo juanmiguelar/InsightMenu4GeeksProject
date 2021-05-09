@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const CuentaIniciar = () => {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
+	const handleEmail = e => {
+		setEmail(e.target.value);
+	};
+
+	const handlePassword = e => {
+		setPassword(e.target.value);
+	};
+
 	return (
 		<div className="container">
 			<div className="row justify-content-center">
@@ -29,13 +40,17 @@ export const CuentaIniciar = () => {
 										name=""
 										placeholder="Correo Electronico"
 										aria-describedby="envelope"
+										value={email}
+										onChange={e => {
+											handleEmail(e);
+										}}
 										required
 									/>
 								</div>
 								<div className="input-group mb-1">
 									<div className="input-group-prepend">
 										<span className="input-group-text" id="envelopeopen">
-											<i className="far fa-envelope-open" />
+											<i className="fa fa-lock" />
 										</span>
 									</div>
 									<input
@@ -43,7 +58,11 @@ export const CuentaIniciar = () => {
 										className="form-control"
 										name=""
 										placeholder="Contraseña"
-										aria-describedby="far fa-keyboard"
+										aria-describedby="fas fa-unlock"
+										value={password}
+										onChange={e => {
+											handlePassword(e);
+										}}
 										required
 									/>
 								</div>

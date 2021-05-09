@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const CuentaRecuperar1 = () => {
+	const [email, setEmail] = useState("");
+
+	const handleEmail = e => {
+		setEmail(e.target.value);
+	};
+
 	return (
 		<div className="container">
 			<div className="row justify-content-center">
@@ -23,12 +29,16 @@ export const CuentaRecuperar1 = () => {
 										name=""
 										placeholder="Correo Electrónico"
 										aria-describedby="envelope"
+										value={email}
+										onChange={e => {
+											handleEmail(e);
+										}}
 										required
 									/>
 								</div>
 							</div>
 							<div className="mt-2">
-								<Link to={"/cuentarecuperar2"}>
+								<Link to={"/cuentarecuperar2"} style={{ textDecoration: "none" }}>
 									<button className="btn btn-info btn-block">Crear mi Cuenta</button>
 								</Link>
 							</div>
