@@ -65,7 +65,10 @@ export const CuentaIniciar = () => {
 				.then(result => {
 					// TODO
 					// Guardar token en el store de session
-					console.log(result);
+					if (result) {
+						// procesar informacion
+						console.log(result);
+					}
 				})
 				.catch(error => {
 					setError(error.message);
