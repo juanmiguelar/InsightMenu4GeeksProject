@@ -5,6 +5,7 @@ db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(20), nullable=False)
     tipo = db.Column(db.String(20), nullable=False, default="particular")
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
@@ -17,6 +18,7 @@ class User(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "nombre":self.nombre,
             "tipo": self.tipo,
             "email": self.email,
             "telefono": self.telefono,
@@ -79,7 +81,6 @@ class Producto(db.Model):
     descripcion = db.Column(db.String(500), nullable=True)
 
     userEmpresarial = db.relationship("User", lazy='subquery', backref=db.backref("Producto", cascade="all,delete"))
-    imagenes = db.relationship("ImagenProducto")
 
     def __repr__(self):
         return '<Producto %r>' % self.nombre
