@@ -16,6 +16,14 @@ export const Carrito = () => {
 
 	const EliminarPlatillo = item => {
 		actions.eliminarPlatillo(item.id);
+    };
+    
+    const CalcularIva = Iva => {
+        return (item.precio / 100) * 13;
+	};
+
+	const CalcularTotalItem = item => {
+		return item.cantidad * item.precio += item.Iva;
 	};
 
 	const GenerarUnItem = (item, index) => {
@@ -80,12 +88,12 @@ export const Carrito = () => {
 						</li>
 						<li className="list-group-item d-flex justify-content-between lh-condensed">
 							<div>
-								<h6 className="my-0">Impuesto de ventas incluido</h6>
+								<h6 className="my-0">IVA {CalcularIva(Iva)}</h6>
 							</div>
 						</li>
 						<li className="list-group-item d-flex justify-content-between">
 							<span>Total (USD)</span>
-							<strong>$20</strong>
+							<strong>{CalcularTotalItem(item)}</strong>
 						</li>
 						<li className="list-group-item d-flex justify-content-between">
 							<button type="submit" className="btn btn-info">
