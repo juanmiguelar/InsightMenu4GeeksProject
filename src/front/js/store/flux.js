@@ -38,6 +38,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 					img: "https://t1.rg.ltmcdn.com/es/images/8/0/2/ensalada_de_papa_y_huevo_cocido_35208_600_square.jpg"
 				}
 			],
+			detalleplatillo: [
+				{
+					orden: 1,
+					nombre: "queso",
+					descripcion: "descripcion",
+					preparacion: "preparacion",
+					gramos: "gramos",
+					calorias: "calorias",
+					azucar: "azucar"
+				},
+				{
+					orden: 2,
+					nombre: "queso",
+					descripcion: "descripcion",
+					preparacion: "preparacion",
+					gramos: "gramos",
+					calorias: "calorias",
+					azucar: "azucar"
+				}
+			],
 			tags: [],
 			demo: [
 				{
