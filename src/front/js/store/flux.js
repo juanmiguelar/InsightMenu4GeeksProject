@@ -58,6 +58,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
+			changeQuantity: (platillo, cantidad) => {
+				const newCarrito = getStore().carrito.map(item => {
+					if (platillo.id == item.id) {
+						item.cantidad = cantidad;
+					}
+					return item;
+				});
+				setStore({ carrito: newCarrito });
+			},
+
 			getMessage: () => {
 				// fetching data from the backend
 				fetch(process.env.BACKEND_URL + "/api/hello")

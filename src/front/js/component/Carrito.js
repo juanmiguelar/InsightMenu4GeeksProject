@@ -16,14 +16,28 @@ export const Carrito = () => {
 
 	const EliminarPlatillo = item => {
 		actions.eliminarPlatillo(item.id);
-    };
-    
-    const CalcularIva = Iva => {
-        return (item.precio / 100) * 13;
 	};
 
-	const CalcularTotalItem = item => {
-		return item.cantidad * item.precio += item.Iva;
+	//david
+
+	const ModificarCantidad = (e, item) => {
+		actions.changeQuantity(item, e.target.value);
+	};
+
+	const CalcularSubTotalOrdenFinal = () => {
+		return store.carrito.map((item, index) => {
+			return item, index;
+		});
+	};
+
+	const CalcularIva = () => {
+		//	return item.precio * 0.13;
+		return 20;
+	};
+
+	const CalcularTotalItem = () => {
+		// return item.cantidad * item.precio + item.Iva;
+		return 20;
 	};
 
 	const GenerarUnItem = (item, index) => {
@@ -42,7 +56,13 @@ export const Carrito = () => {
 					<div className="col col-lg-3 text-left">
 						<div className="form-group text-left">
 							<label htmlFor="exampleFormControlSelect1" />
-							<select className="form-control text-left" id="exampleFormControlSelect1">
+							<select
+								onChange={e => {
+									ModificarCantidad(e, item);
+								}}
+								value={item.cantidad}
+								className="form-control text-left"
+								id="exampleFormControlSelect1">
 								<option>1</option>
 								<option>2</option>
 								<option>3</option>
@@ -84,16 +104,16 @@ export const Carrito = () => {
 							<div>
 								<h6 className="my-0">Subtotal</h6>
 							</div>
-							<span className="text-muted">$20</span>
+							<span className="text-muted">{CalcularSubTotalOrdenFinal()}</span>
 						</li>
 						<li className="list-group-item d-flex justify-content-between lh-condensed">
 							<div>
-								<h6 className="my-0">IVA {CalcularIva(Iva)}</h6>
+								<h6 className="my-0">IVA {CalcularIva()}</h6>
 							</div>
 						</li>
 						<li className="list-group-item d-flex justify-content-between">
 							<span>Total (USD)</span>
-							<strong>{CalcularTotalItem(item)}</strong>
+							<strong>{CalcularTotalItem()}</strong>
 						</li>
 						<li className="list-group-item d-flex justify-content-between">
 							<button type="submit" className="btn btn-info">
