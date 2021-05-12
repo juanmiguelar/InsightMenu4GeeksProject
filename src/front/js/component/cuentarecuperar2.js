@@ -1,11 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const CuentaRecuperar2 = () => {
 	const [codigo, setCodigo] = useState("");
+	const [error, setError] = useState("");
 
 	const handleCodigo = e => {
 		setCodigo(e.target.value);
+	};
+
+	// Funcion Validar - Campos Requeridos
+
+	const Validar = () => {
+		if (codigo === "") {
+			setError("Los campos son requeridos. Ingrese los datos solicitados");
+			return false;
+		} else {
+			setError("");
+			return true;
+		}
+	};
+
+	const ValidarRecuperar2 = () => {
+		// Obtener los datos
+		const esValido = Validar();
+		if (esValido) {
+			// llamar al api
+		} else {
+			// no hacer nada
+		}
+		// El llamado del API
+		var myHeaders = new Headers();
+		myHeaders.append("Content-Type", store.CONTENT_TYPE);
+
+		let body = JSON.stringify({
+			codigo: codigo
+		});
+
+		var requestOptions = {
+			method: store.POST,
+			headers: myHeaders,
+			body: body
+		};
+
+		fetch(store.API_URL + "/login", requestOptions)
+			.then(response => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw Error(response.json());
+				}
+			})
+			.then(result => {
+				console.log("ok");
+			})
+			.catch(error => {});
 	};
 
 	return (
@@ -39,9 +89,16 @@ export const CuentaRecuperar2 = () => {
 								</div>
 							</div>
 							<div className="mt-2">
-								<Link to={"/cuentarecuperar3"} style={{ textDecoration: "none" }}>
-									<button className="btn btn-info btn-block">Crear mi Cuenta</button>
-								</Link>
+								{/* <Link to={"/cuentarecuperar3"} style={{ textDecoration: "none" }}> */}
+								<p className="text-danger">{error}</p>
+								<button
+									className="btn btn-info btn-block"
+									onClick={e => {
+										ValidarRecuperar2(e);
+									}}>
+									Crear mi Cuenta
+								</button>
+								{/* </Link> */}
 							</div>
 						</div>
 					</div>

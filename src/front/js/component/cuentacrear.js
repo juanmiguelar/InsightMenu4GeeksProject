@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import withReactContent from "sweetalert2-react-content";
 import "sweetalert2/src/sweetalert2.scss";
 
 export const CuentaCrear = () => {
+	const { store, actions } = useContext(Context);
 	const [nombre, setNombre] = useState("");
 	const [email, setEmail] = useState("");
 	const [direccion, setDireccion] = useState("");
@@ -11,23 +14,24 @@ export const CuentaCrear = () => {
 	const [password, setPassword] = useState("");
 	const [repassword, setRePassword] = useState("");
 	const [esCuentaEmpresarial, setEsCuentaEmpresarial] = useState(false);
+	const [error, setError] = useState("");
 
-	const MySwal = withReactContent(Swal);
+	// const MySwal = withReactContent(Swal);
 
-	const Register = () => {
-		// alert(nombre, email, direccion, telefono, password, repassword);
-		MySwal.fire({
-			title: <p>Crear Cuenta</p>,
-			icon: "success",
-			showConfirmButton: false,
-			timer: 2000,
-			didOpen: () => {
-				MySwal.clickConfirm();
-			}
-		}).then(() => {
-			return MySwal.fire(<p>Su cuenta se ha agregado satisfactoriamente.</p>);
-		});
-	};
+	// const Register = () => {
+	// 	// alert(nombre, email, direccion, telefono, password, repassword);
+	// 	MySwal.fire({
+	// 		title: <p>Crear Cuenta</p>,
+	// 		icon: "success",
+	// 		showConfirmButton: false,
+	// 		timer: 2000,
+	// 		didOpen: () => {
+	// 			MySwal.clickConfirm();
+	// 		}
+	// 	}).then(() => {
+	// 		return MySwal.fire(<p>Su cuenta se ha agregado satisfactoriamente.</p>);
+	// 	});
+	// };
 
 	const handleNombre = e => {
 		setNombre(e.target.value);
@@ -55,6 +59,66 @@ export const CuentaCrear = () => {
 
 	const handleEsCuentaEmpresarial = e => {
 		setEsCuentaEmpresarial(e.target.checked);
+	};
+
+	// Funcion Validar - Campos Requeridos
+
+	const Validar = () => {
+		if (
+			nombre === "" ||
+			email === "" ||
+			direccion === "" ||
+			telefono === "" ||
+			password === "" ||
+			repassword === ""
+		) {
+			setError("Los campos son requeridos. Ingrese los datos solicitados");
+			return false;
+		} else {
+			setError("");
+			return true;
+		}
+	};
+
+	const ValidarCrearCuenta = () => {
+		// Obtener los datos
+		const esValido = Validar();
+		if (esValido) {
+			// llamar al api
+		} else {
+			// no hacer nada
+		}
+		// El llamado del API
+		var myHeaders = new Headers();
+		myHeaders.append("Content-Type", store.CONTENT_TYPE);
+
+		let body = JSON.stringify({
+			nombre: nombre,
+			email: email,
+			direccion: direccion,
+			telefono: telefono,
+			password: password,
+			repassword: repassword
+		});
+
+		var requestOptions = {
+			method: store.POST,
+			headers: myHeaders,
+			body: body
+		};
+
+		fetch(store.API_URL + "/register", requestOptions)
+			.then(response => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw Error(response.json());
+				}
+			})
+			.then(result => {
+				console.log("ok");
+			})
+			.catch(error => {});
 	};
 
 	return (
@@ -199,7 +263,13 @@ export const CuentaCrear = () => {
 							</div>
 						</div>
 						<div className="mt-2 justify-content-center">
-							<button className="btn btn-info btn-block" onClick={Register}>
+							<p className="text-danger">{error}</p>
+							<button
+								className="btn btn-info btn-block"
+								onClick={e => {
+									ValidarCrearCuenta(e);
+								}}>
+								{/* onClick={Register} */}
 								Crear mi Cuenta
 							</button>
 						</div>

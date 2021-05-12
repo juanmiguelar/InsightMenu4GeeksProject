@@ -20,11 +20,15 @@ export const CuentaIniciar = () => {
 		setPassword(e.target.value);
 	};
 
-	// Funciones
+	// Funcion Validar - Campos Requeridos
 
 	const Validar = () => {
 		if (email === "" || password === "") {
+<<<<<<< HEAD
 			setError("Los campos son requeridos");
+=======
+			setError("Los campos son requeridos. Ingrese los datos solicitados");
+>>>>>>> 90b37bf9cac2ff2c171d5baf3153ef64f6aa320b
 			return false;
 		} else {
 			setError("");

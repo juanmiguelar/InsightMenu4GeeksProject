@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const CuentaRecuperar3 = () => {
 	const [password, setPassword] = useState("");
 	const [repassword, setRePassword] = useState("");
+	const { store, actions } = useContext(Context);
+	const [error, setError] = useState("");
 
 	const handlePassword = e => {
 		setPassword(e.target.value);
@@ -10,6 +14,55 @@ export const CuentaRecuperar3 = () => {
 
 	const handleRePassword = e => {
 		setRePassword(e.target.value);
+	};
+
+	// Funcion Validar - Campos Requeridos
+
+	const Validar = () => {
+		if (password === "" || repassword === "") {
+			setError("Los campos son requeridos. Ingrese los datos solicitados");
+			return false;
+		} else {
+			setError("");
+			return true;
+		}
+	};
+
+	const ValidarRecuperar3 = () => {
+		// Obtener los datos
+		const esValido = Validar();
+		if (esValido) {
+			// llamar al api
+		} else {
+			// no hacer nada
+		}
+		// El llamado del API
+		var myHeaders = new Headers();
+		myHeaders.append("Content-Type", store.CONTENT_TYPE);
+
+		let body = JSON.stringify({
+			password: password,
+			repassword: repassword
+		});
+
+		var requestOptions = {
+			method: store.POST,
+			headers: myHeaders,
+			body: body
+		};
+
+		fetch(store.API_URL + "/login", requestOptions)
+			.then(response => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw Error(response.json());
+				}
+			})
+			.then(result => {
+				console.log("ok");
+			})
+			.catch(error => {});
 	};
 
 	return (
@@ -60,7 +113,14 @@ export const CuentaRecuperar3 = () => {
 								</div>
 							</div>
 							<div className="mt-2">
-								<button className="btn btn-info btn-block">Crear mi Cuenta</button>
+								<p className="text-danger">{error}</p>
+								<button
+									className="btn btn-info btn-block"
+									onClick={e => {
+										ValidarRecuperar3(e);
+									}}>
+									Crear mi Cuenta
+								</button>
 							</div>
 						</div>
 					</div>
