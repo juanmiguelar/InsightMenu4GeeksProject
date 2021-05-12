@@ -6,6 +6,7 @@ import withReactContent from "sweetalert2-react-content";
 import "sweetalert2/src/sweetalert2.scss";
 
 export const CuentaCrear = () => {
+	const { store, actions } = useContext(Context);
 	const [nombre, setNombre] = useState("");
 	const [email, setEmail] = useState("");
 	const [direccion, setDireccion] = useState("");
@@ -106,7 +107,7 @@ export const CuentaCrear = () => {
 			body: body
 		};
 
-		fetch(store.API_URL + "/login", requestOptions)
+		fetch(store.API_URL + "/register", requestOptions)
 			.then(response => {
 				if (response.ok) {
 					return response.json();
