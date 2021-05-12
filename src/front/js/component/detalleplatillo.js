@@ -28,7 +28,7 @@ export const Detalleplatillo = () => {
 	const ObtenerInformacionPlatillo = () => {
 		let idPlatillo = params.id;
 
-		fetch("https://3001-maroon-beetle-2jn5kz80.ws-us03.gitpod.io/api/producto/" + idPlatillo, {
+		fetch(store.API_URL + "/producto/" + idPlatillo, {
 			method: "GET",
 			headers: {}
 		})
@@ -85,7 +85,7 @@ export const Detalleplatillo = () => {
 	};
 
 	const MostrarDetalles = () => {
-		return ingrediente.map((item, index) => {
+		return ingredientes.map((item, index) => {
 			return GenerarDetalles(item, index);
 		});
 	};
