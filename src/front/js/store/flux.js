@@ -1,7 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			API_URL: "https://3001-maroon-beetle-2jn5kz80.ws-us03.gitpod.io/api",
+			API_URL: "https://3001-peach-swordfish-vwob60h6.ws-us04.gitpod.io/api",
 			CONTENT_TYPE: "application/json",
 			POST: "POST",
 			GET: "GET",
@@ -9,20 +9,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			DELETE: "DELETE",
 			message: null,
 			carrito: [
-				{
-					id: 1,
-					nombre: "Pinto",
-					precio: 1500,
-					img: "https://i.ibb.co/tMMR78y/image.png",
-					cantidad: 2
-				},
-				{
-					id: 2,
-					nombre: "Ensalada Cheems",
-					precio: 2300,
-					img: "https://i.ibb.co/tMMR78y/image.png",
-					cantidad: 3
-				}
 				// (total= suma de todos los subtotales)
 				// total = subtotal item 1 + subtotal item 2
 				// total = (item.precio * item.cantidad) + (item2.precio * item2.cantidad) + (itemN.precio * itemN.cantidad)
@@ -113,6 +99,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 
 				setStore({ carrito: nuevoCarrito });
+			},
+			agregarPlatillo: platillo => {
+				setStore({ carrito: getStore().carrito.concat(platillo) });
 			}
 		}
 	};

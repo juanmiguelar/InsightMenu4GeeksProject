@@ -13,10 +13,16 @@ import salad4small from "../../img/salad4peq.jpg";
 import "../../styles/detalleplatillo.scss";
 
 export const Detalleplatillo = () => {
+	const { store, actions } = useContext(Context);
 	const params = useParams();
 	const [tags, setTags] = useState([]);
 	const [imagenes, setImagenes] = useState([]);
+	const [imagenprincipal, setImagenprincipal] = useState("");
 	const [nombre, setNombre] = useState("");
+	const [descripcion, setDescripcion] = useState("");
+	const [ingredientes, setIngredientes] = useState([]);
+	const [precio, setPrecio] = useState(0);
+	const [cantidad, setCantidad] = useState(0);
 
 	useEffect(() => {
 		ObtenerInformacionPlatillo();
@@ -25,7 +31,7 @@ export const Detalleplatillo = () => {
 	const ObtenerInformacionPlatillo = () => {
 		let idPlatillo = params.id;
 
-		fetch("https://3001-maroon-beetle-2jn5kz80.ws-us03.gitpod.io/api/producto/" + idPlatillo, {
+		fetch(store.API_URL + "/producto/" + idPlatillo, {
 			method: "GET",
 			headers: {}
 		})
@@ -45,6 +51,10 @@ export const Detalleplatillo = () => {
 		setTags(data.tags);
 		setNombre(data.nombre);
 		setImagenes(data.imagenes);
+		setDescripcion(data.descripcion);
+		setIngredientes(data.ingredientes);
+		setImagenprincipal(data.img);
+		setPrecio(data.precio);
 	};
 
 	const MostrarTags = () => {
@@ -77,6 +87,65 @@ export const Detalleplatillo = () => {
 				<img src={item.url} className="d-block img-responsive imagemaxheight" alt="..." />
 			</div>
 		);
+	};
+
+	const MostrarDetalles = () => {
+		return ingredientes.map((item, index) => {
+			return GenerarDetalles(item, index);
+		});
+	};
+
+	const GenerarDetalles = (item, index) => {
+		return (
+			<tr>
+				<th scope="row">{item.orden}</th>
+				<td>{item.nombre}</td>
+				<td>{item.descripcion}</td>
+				<td>{item.preparacion}</td>
+				<td>{item.gramos}</td>
+				<td>{item.calorias}</td>
+				<td>{item.azucar}</td>
+			</tr>
+		);
+	};
+
+	const MostrarTabla = () => {
+		if (ingredientes.length > 0) {
+			return (
+				<table className="table">
+					<thead>
+						<tr>
+							<th scope="col">Orden</th>
+							<th scope="col">Nombre</th>
+							<th scope="col">Descripción</th>
+							<th scope="col">Preparación</th>
+							<th scope="col">Gramos</th>
+							<th scope="col">Calorías</th>
+							<th scope="col">Azúcar</th>
+						</tr>
+					</thead>
+					<tbody>{MostrarDetalles()}</tbody>
+				</table>
+			);
+		} else {
+			return null;
+		}
+	};
+
+	const handleCantidad = e => {
+		setCantidad(e.target.value);
+	};
+
+	const AgregarCarrito = () => {
+		const nuevoPlatillo = {
+			id: params.id,
+			nombre: nombre,
+			precio: precio,
+			img: imagenprincipal,
+			cantidad: cantidad
+		};
+		actions.agregarPlatillo(nuevoPlatillo);
+		console.log("se agregó");
 	};
 
 	return (
@@ -114,58 +183,7 @@ export const Detalleplatillo = () => {
 						<div className="Tags float-right">{MostrarTags()}</div>
 						<h1>{nombre}</h1>
 						<h2>Descripción breve del platillo:</h2>
-						<p className="product-description">
-							Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae
-							et! Massa senectus enim minim sociosqu delectus posuere.
-						</p>
-						<div className="Modal_detalle_platillo">
-							{/* <!-- Button trigger modal --> */}
-							<button
-								type="button"
-								className="btn btn-info buttonplatillo"
-								data-toggle="modal"
-								data-target="#exampleModal">
-								Descripción detallada del Platillo
-							</button>
-							{/* <!-- Modal --> */}
-							<div
-								className="modal fade"
-								id="exampleModal"
-								tabIndex="-1"
-								aria-labelledby="exampleModalLabel"
-								aria-hidden="true">
-								<div className="modal-dialog">
-									<div className="modal-content">
-										<div className="modal-header">
-											<h5 className="modal-title" id="exampleModalLabel">
-												Detalles del Platillo
-											</h5>
-											<button
-												type="button"
-												className="close"
-												data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div className="modal-body">
-											<ol className="list-group">
-												<li className="list-group-item">Azúcar:</li>
-												<li className="list-group-item">Calorías:</li>
-												<li className="list-group-item">Descripción:</li>
-												<li className="list-group-item">Gramos:</li>
-												<li className="list-group-item">Preparación:</li>
-											</ol>
-										</div>
-										<div className="modal-footer">
-											<button type="button" className="btn btn-secondary" data-dismiss="modal">
-												Cerrar
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						{descripcion}
 						<h4 className="price">
 							Precio: <span>$180</span>
 						</h4>
@@ -174,7 +192,12 @@ export const Detalleplatillo = () => {
 								<label className="my-1 mr-2" htmlFor="inlineFormCustomSelectPref">
 									Cantidad de platillos
 								</label>
-								<select className="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+								<select
+									className="custom-select my-1 mr-sm-2"
+									id="inlineFormCustomSelectPref"
+									onChange={e => {
+										handleCantidad(e);
+									}}>
 									<option selected>Seleccione:</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -194,8 +217,13 @@ export const Detalleplatillo = () => {
 										<label htmlFor="exampleFormControlTextarea1">Instrucciones Especiales</label>
 										<textarea className="form-control" id="exampleFormControlTextarea1" rows="3" />
 									</div>
-									<div className="text-center">
-										<button type="button" className="btn btn-info">
+									<div className="text-center mb-2">
+										<button
+											type="button"
+											className="btn btn-info"
+											onClick={e => {
+												AgregarCarrito();
+											}}>
 											Agregar al carrito
 										</button>
 									</div>
@@ -206,6 +234,7 @@ export const Detalleplatillo = () => {
 				</div>
 				{/* <!--description end--> */}
 			</div>
+			{MostrarTabla()}
 		</div>
 	);
 };
