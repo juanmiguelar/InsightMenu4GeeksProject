@@ -120,6 +120,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 
 				setStore({ carrito: nuevoCarrito });
+			},
+			agregarPlatillo: platillo => {
+				setStore({ carrito: getStore().carrito.concat(platillo) });
 			}
 		}
 	};

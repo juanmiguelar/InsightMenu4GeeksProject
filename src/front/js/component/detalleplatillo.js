@@ -17,9 +17,12 @@ export const Detalleplatillo = () => {
 	const params = useParams();
 	const [tags, setTags] = useState([]);
 	const [imagenes, setImagenes] = useState([]);
+	const [imagenprincipal, setImagenprincipal] = useState("");
 	const [nombre, setNombre] = useState("");
 	const [descripcion, setDescripcion] = useState("");
 	const [ingredientes, setIngredientes] = useState([]);
+	const [precio, setPrecio] = useState(0);
+	const [cantidad, setCantidad] = useState(0);
 
 	useEffect(() => {
 		ObtenerInformacionPlatillo();
@@ -50,6 +53,8 @@ export const Detalleplatillo = () => {
 		setImagenes(data.imagenes);
 		setDescripcion(data.descripcion);
 		setIngredientes(data.ingredientes);
+		setImagenprincipal(data.img);
+		setPrecio(data.precio);
 	};
 
 	const MostrarTags = () => {
@@ -127,6 +132,22 @@ export const Detalleplatillo = () => {
 		}
 	};
 
+	const handleCantidad = e => {
+		setCantidad(e.target.value);
+	};
+
+	const AgregarCarrito = () => {
+		const nuevoPlatillo = {
+			id: params.id,
+			nombre: nombre,
+			precio: precio,
+			img: imagenprincipal,
+			cantidad: cantidad
+		};
+		actions.agregarPlatillo(nuevoPlatillo);
+		console.log("se agregó");
+	};
+
 	return (
 		<div className="container">
 			<div className="row">
@@ -171,7 +192,12 @@ export const Detalleplatillo = () => {
 								<label className="my-1 mr-2" htmlFor="inlineFormCustomSelectPref">
 									Cantidad de platillos
 								</label>
-								<select className="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+								<select
+									className="custom-select my-1 mr-sm-2"
+									id="inlineFormCustomSelectPref"
+									onChange={e => {
+										handleCantidad(e);
+									}}>
 									<option selected>Seleccione:</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -192,7 +218,12 @@ export const Detalleplatillo = () => {
 										<textarea className="form-control" id="exampleFormControlTextarea1" rows="3" />
 									</div>
 									<div className="text-center mb-2">
-										<button type="button" className="btn btn-info">
+										<button
+											type="button"
+											className="btn btn-info"
+											onClick={e => {
+												AgregarCarrito();
+											}}>
 											Agregar al carrito
 										</button>
 									</div>
