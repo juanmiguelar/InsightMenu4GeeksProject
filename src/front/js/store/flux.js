@@ -9,20 +9,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			DELETE: "DELETE",
 			message: null,
 			carrito: [
-				{
-					id: 1,
-					nombre: "Pinto",
-					precio: 1500,
-					img: "https://i.ibb.co/tMMR78y/image.png",
-					cantidad: 2
-				},
-				{
-					id: 2,
-					nombre: "Ensalada Cheems",
-					precio: 2300,
-					img: "https://i.ibb.co/tMMR78y/image.png",
-					cantidad: 3
-				}
 				// (total= suma de todos los subtotales)
 				// total = subtotal item 1 + subtotal item 2
 				// total = (item.precio * item.cantidad) + (item2.precio * item2.cantidad) + (itemN.precio * itemN.cantidad)
@@ -39,26 +25,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					ingredientes: "papa, huevo duro, jamón",
 					precio: 2300,
 					img: "https://t1.rg.ltmcdn.com/es/images/8/0/2/ensalada_de_papa_y_huevo_cocido_35208_600_square.jpg"
-				}
-			],
-			detalleplatillo: [
-				{
-					orden: 1,
-					nombre: "queso",
-					descripcion: "descripcion",
-					preparacion: "preparacion",
-					gramos: "gramos",
-					calorias: "calorias",
-					azucar: "azucar"
-				},
-				{
-					orden: 2,
-					nombre: "queso",
-					descripcion: "descripcion",
-					preparacion: "preparacion",
-					gramos: "gramos",
-					calorias: "calorias",
-					azucar: "azucar"
 				}
 			],
 			tags: [],
