@@ -23,6 +23,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					img: "https://i.ibb.co/tMMR78y/image.png",
 					cantidad: 3
 				}
+				// (total= suma de todos los subtotales)
+				// total = subtotal item 1 + subtotal item 2
+				// total = (item.precio * item.cantidad) + (item2.precio * item2.cantidad) + (itemN.precio * itemN.cantidad)
 			],
 			platillo: [
 				{
@@ -56,6 +59,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
+			},
+
+			changeQuantity: (platillo, cantidad) => {
+				const newCarrito = getStore().carrito.map(item => {
+					if (platillo.id == item.id) {
+						item.cantidad = cantidad;
+					}
+					return item;
+				});
+				setStore({ carrito: newCarrito });
 			},
 
 			getMessage: () => {
