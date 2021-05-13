@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import PropTypes from "prop-types";
 
-export const CuentaRecuperar2 = () => {
+export const CuentaRecuperar2 = props => {
+	const { store, actions } = useContext(Context);
 	const [codigo, setCodigo] = useState("");
 	const [error, setError] = useState("");
 
@@ -27,35 +29,39 @@ export const CuentaRecuperar2 = () => {
 		const esValido = Validar();
 		if (esValido) {
 			// llamar al api
-		} else {
-			// no hacer nada
+			// El llamado del API
+			var myHeaders = new Headers();
+			myHeaders.append("Content-Type", store.CONTENT_TYPE);
+
+			let body = JSON.stringify({
+				email: props.email,
+				codigo: codigo
+			});
+
+			var requestOptions = {
+				method: store.POST,
+				headers: myHeaders,
+				body: body
+			};
+
+			fetch(store.API_URL + "/recuperar/validar", requestOptions)
+				.then(response => {
+					if (response.ok) {
+						return response.json();
+					} else {
+						response.json().then(data => {
+							setError(data.msg);
+						});
+					}
+				})
+				.then(result => {
+					props.setMsjSig(result.msg);
+					props.setMostrarControles(true);
+				})
+				.catch(error => {
+					console.log(error);
+				});
 		}
-		// El llamado del API
-		var myHeaders = new Headers();
-		myHeaders.append("Content-Type", store.CONTENT_TYPE);
-
-		let body = JSON.stringify({
-			codigo: codigo
-		});
-
-		var requestOptions = {
-			method: store.POST,
-			headers: myHeaders,
-			body: body
-		};
-
-		fetch(store.API_URL + "/login", requestOptions)
-			.then(response => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw Error(response.json());
-				}
-			})
-			.then(result => {
-				console.log("ok");
-			})
-			.catch(error => {});
 	};
 
 	return (
@@ -75,7 +81,7 @@ export const CuentaRecuperar2 = () => {
 										</span>
 									</div>
 									<input
-										type="number"
+										type="text"
 										className="form-control"
 										name=""
 										placeholder="Ingrese el código"
@@ -106,4 +112,10 @@ export const CuentaRecuperar2 = () => {
 			</div>
 		</div>
 	);
+};
+
+CuentaRecuperar2.propTypes = {
+	email: PropTypes.string,
+	setMostrarControles: PropTypes.func,
+	setMsjSig: PropTypes.func
 };

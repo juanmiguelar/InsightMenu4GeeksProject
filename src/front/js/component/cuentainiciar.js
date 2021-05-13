@@ -24,11 +24,7 @@ export const CuentaIniciar = () => {
 
 	const Validar = () => {
 		if (email === "" || password === "") {
-<<<<<<< HEAD
-			setError("Los campos son requeridos");
-=======
 			setError("Los campos son requeridos. Ingrese los datos solicitados");
->>>>>>> 90b37bf9cac2ff2c171d5baf3153ef64f6aa320b
 			return false;
 		} else {
 			setError("");
@@ -136,7 +132,7 @@ export const CuentaIniciar = () => {
 							</div>
 							<div className="fpass d-flex justify-content-between">
 								<div>
-									<Link to={"/cuentarecuperar1"}>
+									<Link to={"/recuperar"}>
 										<a href="#">Olvidó su contraseña?</a>
 									</Link>
 								</div>

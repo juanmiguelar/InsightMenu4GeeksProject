@@ -5,6 +5,7 @@ import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+import { Recuperar } from "./pages/recuperar";
 import { Detalleplatillo } from "./component/detalleplatillo";
 import { Carrito } from "./component/Carrito";
 import { AboutUs } from "./component/AboutUs";
@@ -43,14 +44,8 @@ const Layout = () => {
 						<Route exact path="/cuentainiciar">
 							<CuentaIniciar />
 						</Route>
-						<Route exact path="/cuentarecuperar1">
-							<CuentaRecuperar1 />
-						</Route>
-						<Route exact path="/cuentarecuperar2">
-							<CuentaRecuperar2 />
-						</Route>
-						<Route exact path="/cuentarecuperar3">
-							<CuentaRecuperar3 />
+						<Route exact path="/recuperar">
+							<Recuperar />
 						</Route>
 						<Route exact path="/detalleplatillo/:id">
 							<Detalleplatillo />

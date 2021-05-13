@@ -1,17 +1,18 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import PropTypes from "prop-types";
 
-export const CuentaRecuperar1 = () => {
+export const CuentaRecuperar1 = props => {
 	const [email, setEmail] = useState("");
 	const [error, setError] = useState("");
+	const { store, actions } = useContext(Context);
 
 	const handleEmail = e => {
 		setEmail(e.target.value);
 	};
 
 	// Funcion Validar - Campos Requeridos
-
 	const Validar = () => {
 		if (email === "") {
 			setError("Los campos son requeridos. Ingrese los datos solicitados");
@@ -27,35 +28,39 @@ export const CuentaRecuperar1 = () => {
 		const esValido = Validar();
 		if (esValido) {
 			// llamar al api
-		} else {
-			// no hacer nada
+			// El llamado del API
+			var myHeaders = new Headers();
+			myHeaders.append("Content-Type", store.CONTENT_TYPE);
+
+			let body = JSON.stringify({
+				email: email
+			});
+
+			var requestOptions = {
+				method: store.POST,
+				headers: myHeaders,
+				body: body
+			};
+
+			fetch(store.API_URL + "/recuperar", requestOptions)
+				.then(response => {
+					if (response.ok) {
+						return response.json();
+					} else {
+						response.json().then(data => {
+							setError(data.msg);
+						});
+					}
+				})
+				.then(result => {
+					props.setMsjSig(result.msg);
+					props.setEmail(email);
+					props.setMostrarControles(true);
+				})
+				.catch(error => {
+					console.log(error);
+				});
 		}
-		// El llamado del API
-		var myHeaders = new Headers();
-		myHeaders.append("Content-Type", store.CONTENT_TYPE);
-
-		let body = JSON.stringify({
-			email: email
-		});
-
-		var requestOptions = {
-			method: store.POST,
-			headers: myHeaders,
-			body: body
-		};
-
-		fetch(store.API_URL + "/login", requestOptions)
-			.then(response => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw Error(response.json());
-				}
-			})
-			.then(result => {
-				console.log("ok");
-			})
-			.catch(error => {});
 	};
 
 	return (
@@ -105,4 +110,10 @@ export const CuentaRecuperar1 = () => {
 			</div>
 		</div>
 	);
+};
+
+CuentaRecuperar1.propTypes = {
+	setEmail: PropTypes.func,
+	setMostrarControles: PropTypes.func,
+	setMsjSig: PropTypes.func
 };
