@@ -144,8 +144,20 @@ export const Detalleplatillo = () => {
 			img: imagenprincipal,
 			cantidad: cantidad
 		};
-		actions.agregarPlatillo(nuevoPlatillo);
+		if (existeenelCarrito(item)) {
+			actions.changeQuantity(nuevoPlatillo, cantidad);
+		} else {
+			actions.agregarPlatillo(nuevoPlatillo);
+		}
 		console.log("se agregó");
+	};
+
+	const existeenelCarrito = item => {
+		return (
+			store.carrito.filter(item => {
+				return item.id == nuevoPlatillo.id;
+			}).length > 0
+		);
 	};
 
 	return (
@@ -185,7 +197,8 @@ export const Detalleplatillo = () => {
 						<h2>Descripción breve del platillo:</h2>
 						{descripcion}
 						<h4 className="price">
-							Precio: <span>$180</span>
+							Precio: &#162;
+							{precio}
 						</h4>
 						<div className="PedidoOnline">
 							<form className="form-inline">

@@ -41,11 +41,11 @@ export const Home = () => {
 								return (
 									<div key={index}>
 										<CardPlatillo
-											image={item.img}
+											img={item.img}
 											nombre={item.nombre}
 											precio={item.precio}
-											ingredientes={item.ingredientes}
-											id={index}
+											descripcion={item.descripcion}
+											id={item.id}
 										/>
 									</div>
 								);
