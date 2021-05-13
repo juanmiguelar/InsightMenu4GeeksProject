@@ -134,13 +134,13 @@ class ImagenProducto(db.Model):
 class Ingrediente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     idProducto = db.Column(db.Integer, db.ForeignKey('producto.id'), nullable=False)
-    nombre = db.Column(db.String(100), nullable=True)
-    orden = db.Column(db.Integer, nullable=False)
-    descripcion = db.Column(db.String(500), nullable=True)
-    gramos = db.Column(db.Integer, nullable=False)
-    calorias = db.Column(db.Integer, nullable=False)
-    preparacion = db.Column(db.String(500), nullable=True)
-    azucar = db.Column(db.Integer, nullable=False)
+    nombre = db.Column(db.String(100), nullable=True) # 2
+    orden = db.Column(db.Integer, nullable=False) # 1
+    descripcion = db.Column(db.String(500), nullable=True) # 3
+    gramos = db.Column(db.Integer, nullable=False) # 5
+    calorias = db.Column(db.Integer, nullable=False) # 6
+    preparacion = db.Column(db.String(500), nullable=True) #4
+    azucar = db.Column(db.Integer, nullable=False) # 7
 
     producto = db.relationship("Producto", lazy='subquery', backref=db.backref("Ingrediente", cascade="all,delete"))
 

@@ -18,6 +18,22 @@ export const Carrito = () => {
 		actions.eliminarPlatillo(item.id);
 	};
 
+	//david
+
+	const ModificarCantidad = (e, item) => {
+		actions.changeQuantity(item, e.target.value);
+	};
+
+	//total = (item.precio * item.cantidad) + (item2.precio * item2.cantidad) + (itemN.precio * itemN.cantidad)
+	const CalcularTotal = () => {
+		let total = 0;
+		store.carrito.forEach(item => {
+			let Subtotal = item.cantidad * item.precio;
+			total = total + Subtotal;
+		});
+		return total;
+	};
+
 	const GenerarUnItem = (item, index) => {
 		return (
 			<div className="container-fluid" key={index}>
@@ -29,12 +45,21 @@ export const Carrito = () => {
 						<h3 className="my-0">{item.nombre}</h3>
 					</div>
 					<div className="col col-lg-3">
-						<h3 className="my-0">{item.precio}</h3>
+						<h3 className="my-0">
+							&#162;
+							{item.precio}
+						</h3>
 					</div>
 					<div className="col col-lg-3 text-left">
 						<div className="form-group text-left">
 							<label htmlFor="exampleFormControlSelect1" />
-							<select className="form-control text-left" id="exampleFormControlSelect1">
+							<select
+								onChange={e => {
+									ModificarCantidad(e, item);
+								}}
+								value={item.cantidad}
+								className="form-control text-left"
+								id="exampleFormControlSelect1">
 								<option>1</option>
 								<option>2</option>
 								<option>3</option>
@@ -55,7 +80,10 @@ export const Carrito = () => {
 								Eliminar platillo
 							</button>
 							<div className="container-fluid">
-								<h6 className="my-0 text-left">Subtotal: {CalcularSubTotalItem(item)}</h6>
+								<h6 className="my-0 text-left">
+									Subtotal: &#162;
+									{CalcularSubTotalItem(item)}
+								</h6>
 							</div>
 						</div>
 					</div>
@@ -72,20 +100,14 @@ export const Carrito = () => {
 						<span className="text-muted">Resumen de su pedido</span>
 					</h4>
 					<ul className="list-group mb-3">
-						<li className="list-group-item d-flex justify-content-between lh-condensed">
-							<div>
-								<h6 className="my-0">Subtotal</h6>
-							</div>
-							<span className="text-muted">$20</span>
-						</li>
-						<li className="list-group-item d-flex justify-content-between lh-condensed">
-							<div>
-								<h6 className="my-0">Impuesto de ventas incluido</h6>
-							</div>
-						</li>
+						<li className="list-group-item d-flex justify-content-between lh-condensed" />
 						<li className="list-group-item d-flex justify-content-between">
-							<span>Total (USD)</span>
-							<strong>$20</strong>
+							<span>Total:</span>
+							<strong>
+								{" "}
+								&#162;
+								{CalcularTotal()}
+							</strong>
 						</li>
 						<li className="list-group-item d-flex justify-content-between">
 							<button type="submit" className="btn btn-info">
@@ -113,3 +135,9 @@ export const Carrito = () => {
 		</div>
 	);
 };
+
+//Pendiente crear la funcion del pago
+//crear un evento del onclick
+//metodo para borrar todo el contenido , action en flux llamar desde ahi , hay que dejarlo vacio.
+// preparar un fetch para ese mismo evento onclick
+//
