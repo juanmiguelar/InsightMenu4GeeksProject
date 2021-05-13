@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import salad1med from "../../img/salad1med.jpg";
 import salad1small from "../../img/salad1small.jpg";
 import salad2med from "../../img/salad2med.jpg";
@@ -144,7 +145,7 @@ export const Detalleplatillo = () => {
 			img: imagenprincipal,
 			cantidad: cantidad
 		};
-		if (existeenelCarrito(item)) {
+		if (existeenelCarrito(nuevoPlatillo)) {
 			actions.changeQuantity(nuevoPlatillo, cantidad);
 		} else {
 			actions.agregarPlatillo(nuevoPlatillo);
@@ -152,12 +153,35 @@ export const Detalleplatillo = () => {
 		console.log("se agregó");
 	};
 
-	const existeenelCarrito = item => {
+	const existeenelCarrito = nuevoPlatillo => {
 		return (
 			store.carrito.filter(item => {
 				return item.id == nuevoPlatillo.id;
 			}).length > 0
 		);
+	};
+
+	const mensajepedidoenCarrito = () => {
+		// <!-- Modal -->
+		<div
+			className="modal fade"
+			id="exampleModal"
+			tabIndex="-1"
+			aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div className="modal-dialog">
+				<div className="modal-content">
+					<div className="modal-body">¡Su pedido se ha agregado con éxito!</div>
+					<div className="modal-footer">
+						<Link to="/">
+							<button type="button" className="btn btn-secondary" data-dismiss="modal">
+								Cerrar
+							</button>
+						</Link>
+					</div>
+				</div>
+			</div>
+		</div>;
 	};
 
 	return (
@@ -233,12 +257,15 @@ export const Detalleplatillo = () => {
 									<div className="text-center mb-2">
 										<button
 											type="button"
-											className="btn btn-info"
+											className="btn btn-primary"
+											data-toggle="modal"
+											data-target="#exampleModal"
 											onClick={e => {
 												AgregarCarrito();
 											}}>
 											Agregar al carrito
 										</button>
+										{mensajepedidoenCarrito()}
 									</div>
 								</form>
 							</div>
