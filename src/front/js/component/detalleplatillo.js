@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import salad1med from "../../img/salad1med.jpg";
 import salad1small from "../../img/salad1small.jpg";
 import salad2med from "../../img/salad2med.jpg";
@@ -15,6 +15,7 @@ import "../../styles/detalleplatillo.scss";
 
 export const Detalleplatillo = () => {
 	const { store, actions } = useContext(Context);
+	const [processed, setProcessed] = useState(false);
 	const params = useParams();
 	const [tags, setTags] = useState([]);
 	const [imagenes, setImagenes] = useState([]);
@@ -163,25 +164,35 @@ export const Detalleplatillo = () => {
 
 	const mensajepedidoenCarrito = () => {
 		// <!-- Modal -->
-		<div
-			className="modal fade"
-			id="exampleModal"
-			tabIndex="-1"
-			aria-labelledby="exampleModalLabel"
-			aria-hidden="true">
-			<div className="modal-dialog">
-				<div className="modal-content">
-					<div className="modal-body">¡Su pedido se ha agregado con éxito!</div>
-					<div className="modal-footer">
-						<Link to="/">
-							<button type="button" className="btn btn-secondary" data-dismiss="modal">
+		return (
+			<div
+				className="modal fade"
+				id="exampleModal"
+				tabIndex="-1"
+				aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div className="modal-dialog">
+					<div className="modal-content">
+						<div className="modal-body">¡Su pedido se ha agregado con éxito!</div>
+						<div className="modal-footer">
+							<button
+								onClick={e => {
+									setProcessed(true);
+								}}
+								type="button"
+								className="btn btn-secondary"
+								data-dismiss="modal">
 								Cerrar
 							</button>
-						</Link>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>;
+		);
+	};
+
+	const redirect = () => {
+		setProcessed(true);
 	};
 
 	return (
@@ -247,34 +258,27 @@ export const Detalleplatillo = () => {
 									<option value="9">9</option>
 									<option value="10">10</option>
 								</select>
+								<div className="text-center">
+									<button
+										type="button"
+										className="btn btn-primary"
+										data-toggle="modal"
+										data-target="#exampleModal"
+										onClick={e => {
+											AgregarCarrito();
+										}}>
+										Agregar al carrito
+									</button>
+									{mensajepedidoenCarrito()}
+								</div>
 							</form>
-							<div className="description">
-								<form>
-									<div className="form-group">
-										<label htmlFor="exampleFormControlTextarea1">Instrucciones Especiales</label>
-										<textarea className="form-control" id="exampleFormControlTextarea1" rows="3" />
-									</div>
-									<div className="text-center mb-2">
-										<button
-											type="button"
-											className="btn btn-primary"
-											data-toggle="modal"
-											data-target="#exampleModal"
-											onClick={e => {
-												AgregarCarrito();
-											}}>
-											Agregar al carrito
-										</button>
-										{mensajepedidoenCarrito()}
-									</div>
-								</form>
-							</div>
 						</div>
 					</div>
+					{/* <!--description end--> */}
 				</div>
-				{/* <!--description end--> */}
+				{MostrarTabla()}
+				{processed ? <Redirect to="/" /> : null}
 			</div>
-			{MostrarTabla()}
 		</div>
 	);
 };

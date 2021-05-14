@@ -23,9 +23,6 @@ export function CardPlatillo(props) {
 							¡Quiero saber más!
 						</button>
 					</Link>
-					<a href="#" className="btn btn-warning float-right">
-						<i className="fas fa-heart" />
-					</a>
 				</div>
 			</div>
 		</div>
