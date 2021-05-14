@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import salad1med from "../../img/salad1med.jpg";
 import salad1small from "../../img/salad1small.jpg";
 import salad2med from "../../img/salad2med.jpg";
@@ -14,6 +15,7 @@ import "../../styles/detalleplatillo.scss";
 
 export const Detalleplatillo = () => {
 	const { store, actions } = useContext(Context);
+	const [processed, setProcessed] = useState(false);
 	const params = useParams();
 	const [tags, setTags] = useState([]);
 	const [imagenes, setImagenes] = useState([]);
@@ -144,14 +146,59 @@ export const Detalleplatillo = () => {
 			img: imagenprincipal,
 			cantidad: cantidad
 		};
-		actions.agregarPlatillo(nuevoPlatillo);
+		if (existeenelCarrito(nuevoPlatillo)) {
+			actions.changeQuantity(nuevoPlatillo, cantidad);
+		} else {
+			actions.agregarPlatillo(nuevoPlatillo);
+		}
 		console.log("se agregó");
+	};
+
+	const existeenelCarrito = nuevoPlatillo => {
+		return (
+			store.carrito.filter(item => {
+				return item.id == nuevoPlatillo.id;
+			}).length > 0
+		);
+	};
+
+	const mensajepedidoenCarrito = () => {
+		// <!-- Modal -->
+		return (
+			<div
+				className="modal fade"
+				id="exampleModal"
+				tabIndex="-1"
+				aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div className="modal-dialog">
+					<div className="modal-content">
+						<div className="modal-body">¡Su pedido se ha agregado con éxito!</div>
+						<div className="modal-footer">
+							<button
+								onClick={e => {
+									setProcessed(true);
+								}}
+								type="button"
+								className="btn btn-secondary"
+								data-dismiss="modal">
+								Cerrar
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	};
+
+	const redirect = () => {
+		setProcessed(true);
 	};
 
 	return (
 		<div className="container">
 			<div className="row">
-				<div className="col-xs-12 col-sm-3 col-md-4 col-lg-5">
+				<div className="col-xs-12 col-sm-3 col-md-4 col-lg-5 mb-2">
 					<div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
 						<ol className="carousel-indicators">
 							<li data-target="#carouselExampleIndicators" data-slide-to="0" className="active" />
@@ -185,7 +232,8 @@ export const Detalleplatillo = () => {
 						<h2>Descripción breve del platillo:</h2>
 						{descripcion}
 						<h4 className="price">
-							Precio: <span>$180</span>
+							Precio: &#162;
+							{precio}
 						</h4>
 						<div className="PedidoOnline">
 							<form className="form-inline">
@@ -210,31 +258,27 @@ export const Detalleplatillo = () => {
 									<option value="9">9</option>
 									<option value="10">10</option>
 								</select>
+								<div className="text-center">
+									<button
+										type="button"
+										className="btn btn-primary"
+										data-toggle="modal"
+										data-target="#exampleModal"
+										onClick={e => {
+											AgregarCarrito();
+										}}>
+										Agregar al carrito
+									</button>
+									{mensajepedidoenCarrito()}
+								</div>
 							</form>
-							<div className="description">
-								<form>
-									<div className="form-group">
-										<label htmlFor="exampleFormControlTextarea1">Instrucciones Especiales</label>
-										<textarea className="form-control" id="exampleFormControlTextarea1" rows="3" />
-									</div>
-									<div className="text-center mb-2">
-										<button
-											type="button"
-											className="btn btn-info"
-											onClick={e => {
-												AgregarCarrito();
-											}}>
-											Agregar al carrito
-										</button>
-									</div>
-								</form>
-							</div>
 						</div>
 					</div>
+					{/* <!--description end--> */}
 				</div>
-				{/* <!--description end--> */}
+				{MostrarTabla()}
+				{processed ? <Redirect to="/" /> : null}
 			</div>
-			{MostrarTabla()}
 		</div>
 	);
 };

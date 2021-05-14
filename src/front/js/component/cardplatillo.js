@@ -10,14 +10,10 @@ export function CardPlatillo(props) {
 	return (
 		<div className="col">
 			<div className="card" style={{ width: "18rem" }}>
-				<img
-					className="card-img-top"
-					src="https://static.guiainfantil.com/media/9611/c/como-decorar-la-comida-de-los-ninos-lg.jpg"
-					alt="Comida"
-				/>
+				<img className="card-img-top" src={props.img} alt="Comida" />
 				<div className="card-body">
 					<h5 className="card-title text-xl-left">{props.nombre}</h5>
-					<p className="card-text text-lg-left">Ingredientes: {props.ingredientes}</p>
+					<p className="card-text text-lg-left">{props.descripcion}</p>
 					<p className="card-text text-lg-left">
 						&#162;
 						{props.precio}
@@ -27,9 +23,6 @@ export function CardPlatillo(props) {
 							¡Quiero saber más!
 						</button>
 					</Link>
-					<a href="#" className="btn btn-warning float-right">
-						<i className="fas fa-heart" />
-					</a>
 				</div>
 			</div>
 		</div>
@@ -39,7 +32,7 @@ export function CardPlatillo(props) {
 CardPlatillo.propTypes = {
 	nombre: PropTypes.string,
 	img: PropTypes.string,
-	ingredientes: PropTypes.string,
+	descripcion: PropTypes.string,
 	precio: PropTypes.number,
 	id: PropTypes.number
 };

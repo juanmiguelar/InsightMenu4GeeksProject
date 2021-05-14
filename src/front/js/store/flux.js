@@ -1,7 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			API_URL: "https://3001-amaranth-stoat-pymdsv4j.ws-us04.gitpod.io/api",
+			API_URL: "https://3001-jade-hedgehog-z8fzg7u9.ws-us04.gitpod.io/api",
 			CONTENT_TYPE: "application/json",
 			POST: "POST",
 			GET: "GET",
@@ -13,20 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// total = subtotal item 1 + subtotal item 2
 				// total = (item.precio * item.cantidad) + (item2.precio * item2.cantidad) + (itemN.precio * itemN.cantidad)
 			],
-			platillo: [
-				{
-					nombre: "Pinto",
-					ingredientes: "arroz, frijoles, Salsa Lizano",
-					precio: 1500,
-					img: "https://assets.cdnelnuevodiario.com/cache/0f/3a/0f3a2be6a2ffaf920f54c21756b4d75e.jpg"
-				},
-				{
-					nombre: "Ensalada de Papa",
-					ingredientes: "papa, huevo duro, jamón",
-					precio: 2300,
-					img: "https://t1.rg.ltmcdn.com/es/images/8/0/2/ensalada_de_papa_y_huevo_cocido_35208_600_square.jpg"
-				}
-			],
+			platillo: [],
 			tags: [],
 			demo: [
 				{
@@ -102,6 +89,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			agregarPlatillo: platillo => {
 				setStore({ carrito: getStore().carrito.concat(platillo) });
+			},
+			loadPlatillos: () => {
+				fetch(getStore().API_URL + "/producto", {
+					method: getStore().GET,
+					headers: {}
+				})
+					.then(response => {
+						return response.json();
+					})
+					.then(data => {
+						setStore({ platillo: data });
+					})
+					.catch(err => {
+						console.error(err);
+					});
 			}
 		}
 	};
