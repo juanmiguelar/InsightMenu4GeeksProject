@@ -128,7 +128,7 @@ export const CuentaRecuperar3 = props => {
 									onClick={e => {
 										ValidarRecuperar3(e);
 									}}>
-									Crear mi Cuenta
+									Actualizar contraseña
 								</button>
 							</div>
 						</div>
