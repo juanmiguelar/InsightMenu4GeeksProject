@@ -189,4 +189,4 @@ export const Carrito = () => {
 //crear un evento del onclick
 //metodo para borrar todo el contenido , action en flux llamar desde ahi , hay que dejarlo vacio.
 // preparar un fetch para ese mismo evento onclick
-//
+
