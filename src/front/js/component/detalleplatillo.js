@@ -260,7 +260,7 @@ export const Detalleplatillo = () => {
 							<div className="text-center">
 								<button
 									type="button"
-									className="btn btn-primary"
+									className="btn btn-info"
 									data-toggle="modal"
 									data-target="#exampleModal"
 									onClick={e => {
