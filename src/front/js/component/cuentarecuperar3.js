@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import PropTypes from "prop-types";
 
-export const CuentaRecuperar3 = () => {
+export const CuentaRecuperar3 = props => {
+	const { store, actions } = useContext(Context);
 	const [password, setPassword] = useState("");
 	const [repassword, setRePassword] = useState("");
-	const { store, actions } = useContext(Context);
 	const [error, setError] = useState("");
 
 	const handlePassword = e => {
@@ -22,10 +23,15 @@ export const CuentaRecuperar3 = () => {
 		if (password === "" || repassword === "") {
 			setError("Los campos son requeridos. Ingrese los datos solicitados");
 			return false;
-		} else {
-			setError("");
-			return true;
 		}
+
+		if (password !== repassword) {
+			setError("Las contraseñas no son iguales!");
+			return false;
+		}
+
+		setError("");
+		return true;
 	};
 
 	const ValidarRecuperar3 = () => {
@@ -33,36 +39,39 @@ export const CuentaRecuperar3 = () => {
 		const esValido = Validar();
 		if (esValido) {
 			// llamar al api
-		} else {
-			// no hacer nada
+			// El llamado del API
+			var myHeaders = new Headers();
+			myHeaders.append("Content-Type", store.CONTENT_TYPE);
+
+			let body = JSON.stringify({
+				email: props.email,
+				password: password
+			});
+
+			var requestOptions = {
+				method: store.PUT,
+				headers: myHeaders,
+				body: body
+			};
+
+			fetch(store.API_URL + "/recuperar", requestOptions)
+				.then(response => {
+					if (response.ok) {
+						return response.json();
+					} else {
+						response.json().then(data => {
+							setError(data.msg);
+						});
+					}
+				})
+				.then(result => {
+					props.setMsjSig(result.msg);
+					props.setMostrarControles(true);
+				})
+				.catch(error => {
+					console.log(error);
+				});
 		}
-		// El llamado del API
-		var myHeaders = new Headers();
-		myHeaders.append("Content-Type", store.CONTENT_TYPE);
-
-		let body = JSON.stringify({
-			password: password,
-			repassword: repassword
-		});
-
-		var requestOptions = {
-			method: store.POST,
-			headers: myHeaders,
-			body: body
-		};
-
-		fetch(store.API_URL + "/login", requestOptions)
-			.then(response => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw Error(response.json());
-				}
-			})
-			.then(result => {
-				console.log("ok");
-			})
-			.catch(error => {});
 	};
 
 	return (
@@ -119,7 +128,7 @@ export const CuentaRecuperar3 = () => {
 									onClick={e => {
 										ValidarRecuperar3(e);
 									}}>
-									Crear mi Cuenta
+									Actualizar contraseña
 								</button>
 							</div>
 						</div>
@@ -128,4 +137,10 @@ export const CuentaRecuperar3 = () => {
 			</div>
 		</div>
 	);
+};
+
+CuentaRecuperar3.propTypes = {
+	email: PropTypes.string,
+	setMostrarControles: PropTypes.func,
+	setMsjSig: PropTypes.func
 };
