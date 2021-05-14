@@ -1,10 +1,10 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext, Fragment, useState } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
-import $ from "jquery";
+import { Link, Redirect } from "react-router-dom";
 
 export const Carrito = () => {
 	const { store, actions } = useContext(Context);
+	const [processed, setProcessed] = useState(false);
 
 	const MostrarListaProductosEnCarrito = () => {
 		return store.carrito.map((item, index) => {
@@ -59,9 +59,15 @@ export const Carrito = () => {
 							<button type="button" className="btn btn-secondary" data-dismiss="modal">
 								Cancelar
 							</button>
-							<Link type="button" className="btn btn-primary" data-dismiss="modal" to="/">
+							<button
+								onClick={e => {
+									setProcessed(true);
+								}}
+								type="button"
+								className="btn btn-primary"
+								data-dismiss="modal">
 								Regresar al menu principal
-							</Link>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -174,6 +180,7 @@ export const Carrito = () => {
 				</div>
 			</div>
 			{CrearFinalAlert()}
+			{processed ? <Redirect to="/" /> : null}
 		</Fragment>
 	);
 };
