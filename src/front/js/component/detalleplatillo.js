@@ -60,7 +60,7 @@ export const Detalleplatillo = () => {
 	};
 
 	const MostrarTags = () => {
-		return tags.map((item, index) => {
+		return store.tags.map((item, index) => {
 			return GenerarTag(item, index);
 		});
 	};
@@ -227,8 +227,8 @@ export const Detalleplatillo = () => {
 				<div className="col-xs-12 col-sm-8 col-md-7 col-lg-6">
 					{/* <!--description start--> */}
 					<div className="dishdetails">
-						<div className="Tags float-right">{MostrarTags()}</div>
 						<h1>{nombre}</h1>
+						<div className="Tags float-right">{MostrarTags()}</div>
 						<h2>Descripción breve del platillo:</h2>
 						{descripcion}
 						<h4 className="price">
