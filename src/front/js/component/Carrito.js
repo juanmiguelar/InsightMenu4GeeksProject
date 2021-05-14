@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, Fragment, useState } from "react";
 import { Context } from "../store/appContext";
+import { Link, Redirect } from "react-router-dom";
 
 export const Carrito = () => {
 	const { store, actions } = useContext(Context);
+	const [processed, setProcessed] = useState(false);
 
 	const MostrarListaProductosEnCarrito = () => {
 		return store.carrito.map((item, index) => {
@@ -32,6 +34,45 @@ export const Carrito = () => {
 			total = total + Subtotal;
 		});
 		return total;
+	};
+
+	//$("compraFinalModal").modal('hide');
+
+	const CrearFinalAlert = () => {
+		return (
+			<div id="compraFinalModal" className="modal fade" tabIndex="-1">
+				<div className="modal-dialog">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title">Orden confirmada</h5>
+							<button type="button" className="close" data-dismiss="modal">
+								&times;
+							</button>
+						</div>
+						<div className="modal-body">
+							<p>Gracias por visitar Insight Menu</p>
+							<p className="text-secondary">
+								<small>Recibiras un correo de confirmacion en unos minutos</small>
+							</p>
+						</div>
+						<div className="modal-footer">
+							<button type="button" className="btn btn-secondary" data-dismiss="modal">
+								Cancelar
+							</button>
+							<button
+								onClick={e => {
+									setProcessed(true);
+								}}
+								type="button"
+								className="btn btn-primary"
+								data-dismiss="modal">
+								Regresar al menu principal
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
 	};
 
 	const GenerarUnItem = (item, index) => {
@@ -93,46 +134,54 @@ export const Carrito = () => {
 	};
 
 	return (
-		<div className="container">
-			<div className="row">
-				<div className="col-md-4 order-md-2 mb-4">
-					<h4 className="d-flex justify-content-between align-items-center mb-3">
-						<span className="text-muted">Resumen de su pedido</span>
-					</h4>
-					<ul className="list-group mb-3">
-						<li className="list-group-item d-flex justify-content-between lh-condensed" />
-						<li className="list-group-item d-flex justify-content-between">
-							<span>Total:</span>
-							<strong>
-								{" "}
-								&#162;
-								{CalcularTotal()}
-							</strong>
-						</li>
-						<li className="list-group-item d-flex justify-content-between">
-							<button type="submit" className="btn btn-info">
-								Completar su orden
-							</button>
-						</li>
-					</ul>
-				</div>
-				<div className="col-md-8 order-md-1">
-					<h1 className="mb-3">Su pedido</h1>
-					<div className="container-fluid">
+		<Fragment>
+			<div className="container">
+				<div className="row">
+					<div className="col-md-4 order-md-2 mb-4">
+						<h4 className="d-flex justify-content-between align-items-center mb-3">
+							<span className="text-muted">Resumen de su pedido</span>
+						</h4>
+						<ul className="list-group mb-3">
+							<li className="list-group-item d-flex justify-content-between lh-condensed" />
+							<li className="list-group-item d-flex justify-content-between">
+								<span>Total:</span>
+								<strong>
+									{" "}
+									&#162;
+									{CalcularTotal()}
+								</strong>
+							</li>
+							<li className="list-group-item d-flex justify-content-between">
+								<button
+									type="submit"
+									className="btn btn-info"
+									data-target="#compraFinalModal"
+									data-toggle="modal">
+									Completar su orden
+								</button>
+							</li>
+						</ul>
+					</div>
+					<div className="col-md-8 order-md-1">
+						<h1 className="mb-3">Su pedido</h1>
 						<div className="container-fluid">
-							<div className="m-2 pb-2 row justify-content-start">
-								<div className="col col-lg-3" />
-								<div className="col col-lg-3">Platillos</div>
-								<div className="col col-lg-3">Precio</div>
-								<div className="col col-lg-3">Cantidad</div>
+							<div className="container-fluid">
+								<div className="m-2 pb-2 row justify-content-start">
+									<div className="col col-lg-3" />
+									<div className="col col-lg-3">Platillos</div>
+									<div className="col col-lg-3">Precio</div>
+									<div className="col col-lg-3">Cantidad</div>
+								</div>
 							</div>
-						</div>
 
-						{MostrarListaProductosEnCarrito()}
+							{MostrarListaProductosEnCarrito()}
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+			{CrearFinalAlert()}
+			{processed ? <Redirect to="/" /> : null}
+		</Fragment>
 	);
 };
 
