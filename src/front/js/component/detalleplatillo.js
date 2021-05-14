@@ -60,7 +60,7 @@ export const Detalleplatillo = () => {
 	};
 
 	const MostrarTags = () => {
-		return tags.map((item, index) => {
+		return store.tags.map((item, index) => {
 			return GenerarTag(item, index);
 		});
 	};
@@ -226,59 +226,57 @@ export const Detalleplatillo = () => {
 				</div>
 				<div className="col-xs-12 col-sm-8 col-md-7 col-lg-6">
 					{/* <!--description start--> */}
-					<div className="dishdetails">
-						<div className="Tags float-right">{MostrarTags()}</div>
-						<h1>{nombre}</h1>
-						<h2>Descripción breve del platillo:</h2>
-						{descripcion}
-						<h4 className="price">
-							Precio: &#162;
-							{precio}
-						</h4>
-						<div className="PedidoOnline">
-							<form className="form-inline">
-								<label className="my-1 mr-2" htmlFor="inlineFormCustomSelectPref">
-									Cantidad de platillos
-								</label>
-								<select
-									className="custom-select my-1 mr-sm-2"
-									id="inlineFormCustomSelectPref"
-									onChange={e => {
-										handleCantidad(e);
+					{MostrarTags()}
+					<h1>{nombre}</h1>
+					<h2>Descripción breve del platillo:</h2>
+					{descripcion}
+					<h4 className="price">
+						Precio: &#162;
+						{precio}
+					</h4>
+					<div className="PedidoOnline">
+						<form className="form-inline">
+							<label className="my-1 mr-2" htmlFor="inlineFormCustomSelectPref">
+								Cantidad de platillos
+							</label>
+							<select
+								className="custom-select my-1 mr-sm-2"
+								id="inlineFormCustomSelectPref"
+								onChange={e => {
+									handleCantidad(e);
+								}}>
+								<option selected>Seleccione:</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+							<div className="text-center">
+								<button
+									type="button"
+									className="btn btn-info"
+									data-toggle="modal"
+									data-target="#exampleModal"
+									onClick={e => {
+										AgregarCarrito();
 									}}>
-									<option selected>Seleccione:</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-									<option value="9">9</option>
-									<option value="10">10</option>
-								</select>
-								<div className="text-center">
-									<button
-										type="button"
-										className="btn btn-primary"
-										data-toggle="modal"
-										data-target="#exampleModal"
-										onClick={e => {
-											AgregarCarrito();
-										}}>
-										Agregar al carrito
-									</button>
-									{mensajepedidoenCarrito()}
-								</div>
-							</form>
-						</div>
+									Agregar al carrito
+								</button>
+								{mensajepedidoenCarrito()}
+							</div>
+						</form>
 					</div>
-					{/* <!--description end--> */}
 				</div>
-				{MostrarTabla()}
-				{processed ? <Redirect to="/" /> : null}
+				{/* <!--description end--> */}
 			</div>
+			{MostrarTabla()}
+			{processed ? <Redirect to="/" /> : null}
 		</div>
 	);
 };
