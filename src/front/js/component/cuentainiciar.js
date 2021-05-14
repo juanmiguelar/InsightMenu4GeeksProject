@@ -37,36 +37,43 @@ export const CuentaIniciar = () => {
 		const esValido = Validar();
 		if (esValido) {
 			// llamar al api
-		} else {
-			// no hacer nada
+			var myHeaders = new Headers();
+			myHeaders.append("Content-Type", store.CONTENT_TYPE);
+
+			let body = JSON.stringify({
+				email: email,
+				password: password
+			});
+
+			var requestOptions = {
+				method: store.POST,
+				headers: myHeaders,
+				body: body
+			};
+
+			fetch(store.API_URL + "/login", requestOptions)
+				.then(response => {
+					if (response.ok) {
+						setError("");
+						return response.json();
+					} else {
+						response.json().then(data => {
+							setError(data.msg);
+						});
+					}
+				})
+				.then(result => {
+					// TODO
+					// Guardar token en el store de session
+					if (result) {
+						// procesar informacion
+						console.log(result);
+					}
+				})
+				.catch(error => {
+					setError(error.message);
+				});
 		}
-		// El llamado del API
-		var myHeaders = new Headers();
-		myHeaders.append("Content-Type", store.CONTENT_TYPE);
-
-		let body = JSON.stringify({
-			email: email,
-			password: password
-		});
-
-		var requestOptions = {
-			method: store.POST,
-			headers: myHeaders,
-			body: body
-		};
-
-		fetch(store.API_URL + "/login", requestOptions)
-			.then(response => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw Error(response.json());
-				}
-			})
-			.then(result => {
-				console.log("ok");
-			})
-			.catch(error => {});
 	};
 
 	return (
@@ -125,7 +132,7 @@ export const CuentaIniciar = () => {
 							</div>
 							<div className="fpass d-flex justify-content-between">
 								<div>
-									<Link to={"/cuentarecuperar1"}>
+									<Link to={"/recuperar"}>
 										<a href="#">Olvidó su contraseña?</a>
 									</Link>
 								</div>
