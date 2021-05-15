@@ -43,6 +43,33 @@ def GetProductById(id):
         return jsonify(producto.serialize(details=True)), 200     
     else:
         return "El producto no existe", 404
+
+@api.route('/producto/filter', methods=['POST'])
+def POSTProductoFilter():
+    tags = request.json.get("tags", None)
+    if (len(tags) == 0):
+        productos = list(map(lambda p: p.serialize(), Producto.query.all()))
+        return jsonify(productos), 200  
+        
+    arrayTotal = []
+    for tag in tags:
+        tempArray = list(Producto_x_Tag.query.filter_by(idTag = int(tag)))
+        arrayTotal = arrayTotal + tempArray
+    
+    print(arrayTotal)
+    arrayIdsProducto = []
+    for item in arrayTotal:
+        arrayIdsProducto.append(item.idProducto)
+    
+    idProductoUnicos = set(arrayIdsProducto)
+
+    productos = []
+    for idProducto in idProductoUnicos:
+        productos.append(Producto.query.get(idProducto))
+    
+    respuesta = list(map(lambda p: p.serialize(), productos))
+
+    return jsonify(respuesta), 200   
 ### PRODUCTO END ###
 
 ### TAG ###
@@ -70,7 +97,7 @@ def Login():
         # the user was not found on the database
         return jsonify({"msg": "Usuario o contraseña incorrecta"}), 401
     access_token = create_access_token(identity=user.id)
-    return jsonify({ "token": access_token, "idUser": user.id })
+    return jsonify({ "token": access_token, "idUser": user.id, "nombre": user.nombre, "email": user.email })
 
 @api.route('/register', methods=['POST'])
 def Register():
@@ -156,6 +183,14 @@ def POST_Pedido():
         return jsonify(pedido.serialize()), 200
     else:
         return "BadRequest: debe haber detalle", 400
-    
+
+@api.route('/correoPedido/<string:email>', methods=['GET'])
+def correoPedido(email):
+    # Obtener el correo del usuario por sesion
+    codigoPedido = shortuuid.uuid()
+
+    SendEmailTemplate('compra', { "codigo": codigoPedido}, email, f'Insight Menu: confirmación de compra')
+    return "Todo bien", 200
+
 ### PEDIDO END ###
     

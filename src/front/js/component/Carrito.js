@@ -133,6 +133,79 @@ export const Carrito = () => {
 		);
 	};
 
+	const EstaEnSession = () => {
+		if (sessionStorage.token) {
+			// Mostrar boton de completar compra
+			return (
+				<button
+					onClick={e => {
+						handleOnClickCompletaOrder(e);
+					}}
+					type="submit"
+					className="btn btn-info"
+					data-target="#compraFinalModal"
+					data-toggle="modal">
+					Completar su orden
+				</button>
+			);
+		} else {
+			// Mostrar boton para ir a iniicar sesion
+			return (
+				<Link to="/cuentainiciar" className="btn btn-info">
+					Iniciar Session
+				</Link>
+			);
+		}
+	};
+
+	const handleOnClickCompletaOrder = e => {
+		actions.vaciarCarrito();
+		console.log("Hola");
+		enviarCorreoConfirmacion();
+	};
+
+	const enviarCorreoConfirmacion = () => {
+		// llamar al api
+		var myHeaders = new Headers();
+		myHeaders.append("Content-Type", store.CONTENT_TYPE);
+
+		var requestOptions = {
+			method: store.GET,
+			headers: myHeaders
+		};
+
+		fetch(store.API_URL + "/correoPedido/" + sessionStorage.email, requestOptions)
+			.then(response => {})
+			.then(result => {})
+			.catch(error => {
+				console.log(error.message);
+			});
+	};
+
+	const MostrarContenidoCarrito = () => {
+		if (store.carrito.length > 0) {
+			return (
+				<div className="col-md-8 order-md-1">
+					<h1 className="mb-3">Su pedido</h1>
+					<div className="container-fluid">
+						<div className="container-fluid">
+							<div className="m-2 pb-2 row justify-content-start">
+								<div className="col col-lg-3" />
+								<div className="col col-lg-3">Platillos</div>
+								<div className="col col-lg-3">Precio</div>
+								<div className="col col-lg-3">Cantidad</div>
+							</div>
+						</div>
+
+						{MostrarListaProductosEnCarrito()}
+					</div>
+				</div>
+			);
+		} else {
+			return <div className="col-md-8 order-md-1">Carrito vacio!</div>;
+		}
+	};
+
 	return (
 		<Fragment>
 			<div className="container">
@@ -151,32 +224,10 @@ export const Carrito = () => {
 									{CalcularTotal()}
 								</strong>
 							</li>
-							<li className="list-group-item d-flex justify-content-between">
-								<button
-									type="submit"
-									className="btn btn-info"
-									data-target="#compraFinalModal"
-									data-toggle="modal">
-									Completar su orden
-								</button>
-							</li>
+							<li className="list-group-item d-flex justify-content-between">{EstaEnSession()}</li>
 						</ul>
 					</div>
-					<div className="col-md-8 order-md-1">
-						<h1 className="mb-3">Su pedido</h1>
-						<div className="container-fluid">
-							<div className="container-fluid">
-								<div className="m-2 pb-2 row justify-content-start">
-									<div className="col col-lg-3" />
-									<div className="col col-lg-3">Platillos</div>
-									<div className="col col-lg-3">Precio</div>
-									<div className="col col-lg-3">Cantidad</div>
-								</div>
-							</div>
-
-							{MostrarListaProductosEnCarrito()}
-						</div>
-					</div>
+					{MostrarContenidoCarrito()}
 				</div>
 			</div>
 			{CrearFinalAlert()}
@@ -189,4 +240,3 @@ export const Carrito = () => {
 //crear un evento del onclick
 //metodo para borrar todo el contenido , action en flux llamar desde ahi , hay que dejarlo vacio.
 // preparar un fetch para ese mismo evento onclick
-

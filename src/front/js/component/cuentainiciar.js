@@ -68,6 +68,11 @@ export const CuentaIniciar = () => {
 					if (result) {
 						// procesar informacion
 						console.log(result);
+						sessionStorage.setItem("idUser", result.idUser);
+						sessionStorage.setItem("token", result.token);
+						sessionStorage.setItem("nombre", result.nombre);
+						sessionStorage.setItem("email", result.email);
+						actions.enSession(true);
 					}
 				})
 				.catch(error => {
