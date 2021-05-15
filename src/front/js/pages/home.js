@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import cereal from "../../img/cereal2.jpg";
@@ -15,6 +15,7 @@ import "../../styles/home.scss";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
+	const [badgeActivos, setBadgeActivos] = useState([]);
 
 	const MostrarTags = () => {
 		return store.tags.map((item, index) => {
@@ -22,11 +23,34 @@ export const Home = () => {
 		});
 	};
 
+	const handleBadgeClick = (e, item) => {
+		if (badgeActivos.includes(item.id)) {
+			// hay que quitarlo
+			const arrayNuevo = badgeActivos.filter((i, index) => {
+				return i != item.id;
+			});
+
+			setBadgeActivos(arrayNuevo);
+			actions.loadPlatillosTags(arrayNuevo);
+		} else {
+			// hay que ingresarlo
+			const arrayNuevo = badgeActivos.concat(item.id);
+			setBadgeActivos(arrayNuevo);
+			actions.loadPlatillosTags(arrayNuevo);
+		}
+	};
+
 	const GenerarTag = (item, index) => {
+		const claseCorrespondiente = badgeActivos.includes(item.id) ? "badge-info" : "badge-dark";
 		return (
-			<li className="nav-item" key={index}>
+			<li
+				className="nav-item"
+				key={index}
+				onClick={e => {
+					handleBadgeClick(e, item);
+				}}>
 				<a className="nav-link" href="#">
-					<span className="badge badge-pill badge-primary">{item.nombre}</span>
+					<span className={"badge badge-pill " + claseCorrespondiente}>{item.nombre}</span>
 				</a>
 			</li>
 		);

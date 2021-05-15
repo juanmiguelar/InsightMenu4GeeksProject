@@ -32,7 +32,9 @@ export const Navbar = () => {
 								<Link to="/cuentainiciar">
 									<li className="nav-item">
 										<a className="nav-link" href="#">
-											Iniciar Sesión
+											{sessionStorage.token
+												? sessionStorage.nombre + " (Salir)"
+												: "Iniciar Sesión"}
 										</a>
 									</li>
 								</Link>

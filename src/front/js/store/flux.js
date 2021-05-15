@@ -1,7 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			API_URL: "https://3001-jade-hedgehog-z8fzg7u9.ws-us04.gitpod.io/api",
+			API_URL: "https://3001-indigo-cat-kcyw5h60.ws-us04.gitpod.io/api",
 			CONTENT_TYPE: "application/json",
 			POST: "POST",
 			GET: "GET",
@@ -26,7 +26,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			enSession: false
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -104,6 +105,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(err => {
 						console.error(err);
 					});
+			},
+			loadPlatillosTags: tagActivos => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", getStore().CONTENT_TYPE);
+				let body = JSON.stringify({
+					tags: tagActivos
+				});
+				var requestOptions = {
+					method: getStore().POST,
+					headers: myHeaders,
+					body: body
+				};
+				fetch(getStore().API_URL + "/producto/filter", requestOptions)
+					.then(response => {
+						return response.json();
+					})
+					.then(data => {
+						setStore({ platillo: data });
+					})
+					.catch(err => {
+						console.error(err);
+					});
+			},
+			vaciarCarrito: () => {
+				setStore({ carrito: [] });
+			},
+			enSession: logeado => {
+				setStore({ enSession: logeado });
 			}
 		}
 	};

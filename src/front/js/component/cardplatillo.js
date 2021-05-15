@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 export function CardPlatillo(props) {
 	const { store, actions } = useContext(Context);
-	console.log(store);
 
 	return (
 		<div className="col">
