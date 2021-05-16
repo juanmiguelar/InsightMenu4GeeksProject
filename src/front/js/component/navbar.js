@@ -1,12 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logoinsight150ppi from "../../img/Insight_150ppi.png";
 import logoinsight72ppi from "../../img/Insight_72ppi.png";
 import logoinsightjpg from "../../img/Insight.jpg";
+import { Context } from "../store/appContext";
 
 import "../../styles/navbar.scss";
 
 export const Navbar = () => {
+	const { store, actions } = useContext(Context);
+
+	const CerrarSession = () => {
+		sessionStorage.clear();
+		actions.enSession(false);
+	};
+
+	const VerSalirSession = () => {
+		if (sessiotypeof nStorage.token)token !== "undefined" != unundefined			return (
+				<a
+					onClick={e => {
+						CerrarSession();
+					}}>
+					{sessionStorage.nombre}
+					(Salir)
+				</a>
+			);
+		} else {
+			return (
+				<Link to    ="/cuentainiciar">
+					<li classNa    me="nav-item">
+						<a className="    nav-link" href="#">
+							{sessionStorage.t        				</Link>
+    			);
+    		}
+    	};
+
 	return (
 		<div className="container-fluid mb-3">
 			<div className="row">
@@ -33,16 +61,7 @@ export const Navbar = () => {
 									<li className="nav-item">
 										<a className="nav-link" href="#">
 											{sessionStorage.token
-												? sessionStorage.nombre + " (Salir)"
-												: "Iniciar Sesión"}
-										</a>
-									</li>
-								</Link>
-								<Link to="/carrito">
-									<li className="nav-item">
-										<a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">
-											Carrito
-											<i className="fas fa-shopping-cart" />
+												? sessionStorage.nom{VerSalirSession()}											<i className="fas fa-shopping-cart" />
 										</a>
 									</li>
 								</Link>

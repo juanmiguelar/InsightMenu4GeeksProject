@@ -1,7 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			API_URL: "https://3001-indigo-cat-kcyw5h60.ws-us04.gitpod.io/api",
+			API_URL: "https://3001-jade-jackal-wb95k70p.ws-us04.gitpod.io/api",
 			CONTENT_TYPE: "application/json",
 			POST: "POST",
 			GET: "GET",

@@ -38,7 +38,7 @@ const Layout = () => {
 						<Route exact path="/demo">
 							<Demo />
 						</Route>
-						<Route exact path="/crearcuenta">
+						<Route exact path="/registro">
 							<CuentaCrear />
 						</Route>
 						<Route exact path="/cuentainiciar">
