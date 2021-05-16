@@ -8,6 +8,7 @@ import juan from "../../img/perfil2.jpg";
 import david from "../../img/david.jpeg";
 import margo from "../../img/margopower.jpeg";
 import adan from "../../img/adan.jpeg";
+import micit from "../../img/micitweloveu.png";
 
 export const AboutUs = () => {
 	const { store, actions } = useContext(Context);
@@ -15,10 +16,14 @@ export const AboutUs = () => {
 	return (
 		<div>
 			<div className="jumbotron p-3 p-md-5 text-white rounded bg-dark">
-				<div className="col-md-6 px-0" />
-				<div className="col-md-6 px-0">
-					<h1 className="display-4">Insight Menu Development Team</h1>
-					<p className="lead my-3">4Geeks Academy</p>
+				<div className="row">
+					<div className="col-md-6 px-0">
+						<h1 className="display-4">Insight Menu Development Team</h1>
+						<p className="lead my-3">4Geeks Academy</p>
+					</div>
+					<div className="col-md-6 px-0">
+						<img src={micit} className="float-right" style={{ maxHeight: "250px" }} />
+					</div>
 				</div>
 			</div>
 
@@ -86,13 +91,16 @@ export const AboutUs = () => {
 				<div className="col-md-6">
 					<div className="card flex-md-row mb-4 box-shadow h-md-250">
 						<div className="card-body d-flex flex-column align-items-start">
-							<strong className="d-inline-block mb-2 text-primary">Ingeniero</strong>
+							<strong className="d-inline-block mb-2 text-primary">Optimización de Operaciones</strong>
 							<h3 className="mb-0">
 								<a className="text-dark" href="#">
-									Adan
+									Adán Chaves Ureña
 								</a>
 							</h3>
-							<p className="card-text mb-auto">Aqui ponemos una pequena descripcion</p>
+							<p className="card-text mb-auto">
+								Obtenemos con Insight una solución a la necesidad de las personas de saber que tipo de
+								ingredientes estarían consumiendo, logrando el mejor beneficio de su salud.
+							</p>
 						</div>
 						<img src={adan} classNameName="img-thumbnail" style={{ maxHeight: "250px" }} />
 					</div>
