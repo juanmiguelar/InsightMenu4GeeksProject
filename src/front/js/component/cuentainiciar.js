@@ -10,6 +10,7 @@ export const CuentaIniciar = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
+	const [msj, setMsj] = useState("");
 
 	// Eventos
 	const handleEmail = e => {
@@ -73,6 +74,7 @@ export const CuentaIniciar = () => {
 						sessionStorage.setItem("nombre", result.nombre);
 						sessionStorage.setItem("email", result.email);
 						actions.enSession(true);
+						setMsj("Sesión iniciada con éxito!");
 					}
 				})
 				.catch(error => {
@@ -141,8 +143,14 @@ export const CuentaIniciar = () => {
 										<a href="#">Olvidó su contraseña?</a>
 									</Link>
 								</div>
+								<div>
+									<Link to={"/registro"} className="">
+										<a href="#">Crear cuenta</a>
+									</Link>
+								</div>
 							</div>
 							<div className="mt-2">
+								<p className="text-info">{msj}</p>
 								<p className="text-danger">{error}</p>
 								<button
 									className="btn btn-info btn-block"

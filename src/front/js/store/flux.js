@@ -1,7 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			API_URL: "https://3001-indigo-cat-kcyw5h60.ws-us04.gitpod.io/api",
+			googlemap: process.env.googleAPIToken,
+			API_URL: process.env.BACKEND_URL,
 			CONTENT_TYPE: "application/json",
 			POST: "POST",
 			GET: "GET",

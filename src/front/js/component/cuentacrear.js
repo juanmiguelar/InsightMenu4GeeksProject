@@ -15,6 +15,7 @@ export const CuentaCrear = () => {
 	const [repassword, setRePassword] = useState("");
 	const [esCuentaEmpresarial, setEsCuentaEmpresarial] = useState(false);
 	const [error, setError] = useState("");
+	const [msj, setMsj] = useState("");
 
 	// const MySwal = withReactContent(Swal);
 
@@ -65,60 +66,67 @@ export const CuentaCrear = () => {
 
 	const Validar = () => {
 		if (
-			nombre === "" ||
-			email === "" ||
-			direccion === "" ||
-			telefono === "" ||
-			password === "" ||
-			repassword === ""
+			nombre.trim() === "" ||
+			email.trim() === "" ||
+			direccion.trim() === "" ||
+			telefono.trim() === "" ||
+			password.trim() === "" ||
+			repassword.trim() === ""
 		) {
 			setError("Los campos son requeridos. Ingrese los datos solicitados");
 			return false;
-		} else {
-			setError("");
-			return true;
 		}
+
+		if (password.trim() !== repassword.trim()) {
+			setError("Las contraseñas deben ser iguales.");
+			return false;
+		}
+
+		setError("");
+		return true;
 	};
 
 	const ValidarCrearCuenta = () => {
 		// Obtener los datos
 		const esValido = Validar();
 		if (esValido) {
-			// llamar al api
-		} else {
-			// no hacer nada
+			// El llamado del API
+			var myHeaders = new Headers();
+			myHeaders.append("Content-Type", store.CONTENT_TYPE);
+
+			let body = JSON.stringify({
+				nombre: nombre,
+				email: email,
+				tipo: esCuentaEmpresarial ? "empresarial" : "particular",
+				direccion: direccion,
+				telefono: telefono,
+				password: password,
+				repassword: repassword
+			});
+
+			var requestOptions = {
+				method: store.POST,
+				headers: myHeaders,
+				body: body
+			};
+
+			fetch(store.API_URL + "/register", requestOptions)
+				.then(response => {
+					if (response.ok) {
+						return response.json();
+					} else {
+						response.json().then(data => {
+							setError(data.msg);
+						});
+					}
+				})
+				.then(result => {
+					setMsj("Cuenta creada! Inicia sesión");
+				})
+				.catch(error => {
+					setError(error.message);
+				});
 		}
-		// El llamado del API
-		var myHeaders = new Headers();
-		myHeaders.append("Content-Type", store.CONTENT_TYPE);
-
-		let body = JSON.stringify({
-			nombre: nombre,
-			email: email,
-			direccion: direccion,
-			telefono: telefono,
-			password: password,
-			repassword: repassword
-		});
-
-		var requestOptions = {
-			method: store.POST,
-			headers: myHeaders,
-			body: body
-		};
-
-		fetch(store.API_URL + "/register", requestOptions)
-			.then(response => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw Error(response.json());
-				}
-			})
-			.then(result => {
-				console.log("ok");
-			})
-			.catch(error => {});
 	};
 
 	return (
@@ -263,6 +271,7 @@ export const CuentaCrear = () => {
 							</div>
 						</div>
 						<div className="mt-2 justify-content-center">
+							<p className="text-info">{msj}</p>
 							<p className="text-danger">{error}</p>
 							<button
 								className="btn btn-info btn-block"
