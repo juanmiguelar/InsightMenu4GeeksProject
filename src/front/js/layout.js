@@ -10,6 +10,7 @@ import { Detalleplatillo } from "./component/detalleplatillo";
 import { Carrito } from "./component/Carrito";
 import { AboutUs } from "./component/AboutUs";
 import injectContext from "./store/appContext";
+import InsightMap from "./component/InsightMap";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -25,6 +26,7 @@ const Layout = () => {
 	//the basename is used when your project is published in a subdirectory and not in the root of the domain
 	// you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
 	const basename = process.env.BASENAME || "";
+	const MapURL = "https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBPOJLHSjRtr-ZX2kZ2K4MtD__TpnML78M";
 
 	return (
 		<div className="d-flex flex-column h-100">
@@ -37,6 +39,14 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/demo">
 							<Demo />
+						</Route>
+						<Route exact path="/map">
+							<InsightMap
+								googleMapURL={MapURL}
+								containerElement={<div style={{ height: "400px" }} />}
+								mapElement={<div style={{ height: "100%" }} />}
+								loadingElement={<p>Cargando</p>}
+							/>
 						</Route>
 						<Route exact path="/registro">
 							<CuentaCrear />

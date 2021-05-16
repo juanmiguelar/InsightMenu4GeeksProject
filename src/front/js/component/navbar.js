@@ -16,24 +16,29 @@ export const Navbar = () => {
 	};
 
 	const VerSalirSession = () => {
-		if (sessiotypeof nStorage.token)token !== "undefined" != unundefined			return (
-				<a
+		if (sessionStorage.token) {
+			return (
+				<button
+					className="btn btn-outline-info"
 					onClick={e => {
 						CerrarSession();
 					}}>
 					{sessionStorage.nombre}
 					(Salir)
-				</a>
+				</button>
 			);
 		} else {
 			return (
-				<Link to    ="/cuentainiciar">
-					<li classNa    me="nav-item">
-						<a className="    nav-link" href="#">
-							{sessionStorage.t        				</Link>
-    			);
-    		}
-    	};
+				<Link to="/cuentainiciar">
+					<li className="nav-item">
+						<a className="nav-link" href="#">
+							Iniciar Sesión
+						</a>
+					</li>
+				</Link>
+			);
+		}
+	};
 
 	return (
 		<div className="container-fluid mb-3">
@@ -57,11 +62,12 @@ export const Navbar = () => {
 						</button>
 						<div className="collapse navbar-collapse justify-content-center" id="navbarNav">
 							<ul className="navbar-nav nav-fill w-500">
-								<Link to="/cuentainiciar">
+								{VerSalirSession()}
+								<Link to="/carrito">
 									<li className="nav-item">
-										<a className="nav-link" href="#">
-											{sessionStorage.token
-												? sessionStorage.nom{VerSalirSession()}											<i className="fas fa-shopping-cart" />
+										<a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">
+											Carrito
+											<i className="fas fa-shopping-cart" />
 										</a>
 									</li>
 								</Link>

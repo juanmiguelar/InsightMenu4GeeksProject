@@ -4,8 +4,10 @@ import { Context } from "../store/appContext";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import withReactContent from "sweetalert2-react-content";
 import "sweetalert2/src/sweetalert2.scss";
+import InsightMap from "./InsightMap";
 
 export const CuentaCrear = () => {
+	const MapURL = "https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBPOJLHSjRtr-ZX2kZ2K4MtD__TpnML78M";
 	const { store, actions } = useContext(Context);
 	const [nombre, setNombre] = useState("");
 	const [email, setEmail] = useState("");
@@ -270,6 +272,12 @@ export const CuentaCrear = () => {
 								</label>
 							</div>
 						</div>
+						<InsightMap
+							googleMapURL={MapURL}
+							containerElement={<div style={{ height: "400px" }} />}
+							mapElement={<div style={{ height: "100%" }} />}
+							loadingElement={<p>Cargando</p>}
+						/>
 						<div className="mt-2 justify-content-center">
 							<p className="text-info">{msj}</p>
 							<p className="text-danger">{error}</p>
