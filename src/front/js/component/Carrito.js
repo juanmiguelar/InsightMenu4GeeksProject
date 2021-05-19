@@ -152,7 +152,7 @@ export const Carrito = () => {
 			// Mostrar boton para ir a iniicar sesion
 			return (
 				<Link to="/cuentainiciar" className="btn btn-info">
-					Iniciar Session
+					Iniciar Sesión
 				</Link>
 			);
 		}

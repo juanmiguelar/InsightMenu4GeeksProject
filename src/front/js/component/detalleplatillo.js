@@ -60,7 +60,7 @@ export const Detalleplatillo = () => {
 	};
 
 	const MostrarTags = () => {
-		return store.tags.map((item, index) => {
+		return tags.map((item, index) => {
 			return GenerarTag(item, index);
 		});
 	};
