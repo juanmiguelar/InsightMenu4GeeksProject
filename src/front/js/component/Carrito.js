@@ -171,7 +171,8 @@ export const Carrito = () => {
 
 		var requestOptions = {
 			method: store.GET,
-			headers: myHeaders
+			headers: myHeaders,
+			Authorization: "Bearer " + sessionStorage.token
 		};
 
 		fetch(store.API_URL + "/correoPedido/" + sessionStorage.email, requestOptions)

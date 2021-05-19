@@ -184,6 +184,7 @@ def POST_Pedido():
     else:
         return "BadRequest: debe haber detalle", 400
 
+@jwt_required()
 @api.route('/correoPedido/<string:email>', methods=['GET'])
 def correoPedido(email):
     # Obtener el correo del usuario por sesion

@@ -9,7 +9,12 @@ export function CardPlatillo(props) {
 	return (
 		<div className="col">
 			<div className="card" style={{ width: "18rem" }}>
-				<img className="card-img-top" src={props.img} alt="Comida" />
+				<img
+					className="card-img-top img-responsive"
+					src={props.img}
+					alt="Comida"
+					style={{ maxHeight: "250px" }}
+				/>
 				<div className="card-body">
 					<h5 className="card-title text-xl-left">{props.nombre}</h5>
 					<p className="card-text text-lg-left">{props.descripcion}</p>
